@@ -1,6 +1,6 @@
 # 毕设项目交接文档（Agent Handoff）
 
-更新时间：2026-03-09
+更新时间：2026-03-10
 
 ## 1. 课题与目标
 
@@ -62,6 +62,19 @@
    - `project/data/samples/dwell_targets_demo.csv`
    - `/home/lyh/workspace/run_dwell_replay.sh`
 
+## 3.2 新增模块（2026-03-10）
+
+1. 坐标命中测试（gaze_x/gaze_y -> target_id）：
+   - `src/gaze_mvp/gaze_hit_test.py`
+2. 运行时闭环管线（hit-test -> dwell -> keyboard flow）：
+   - `src/gaze_mvp/gaze_runtime_pipeline.py`
+3. 坐标驱动脚本：
+   - `scripts/run_gaze_pipeline.py`
+   - `/home/lyh/workspace/run_gaze_pipeline.sh`
+4. 样例与报告：
+   - `project/data/samples/gaze_points_demo.csv`
+   - `project/data/reports/gaze_pipeline_demo_report.json`
+
 ## 4. 关键路径与文档
 
 1. 总规划文档：
@@ -73,8 +86,8 @@
 
 ## 5. 当前阻塞与待确认
 
-1. 摄像头实时验证待用户本机确认（自动化环境里无 `/dev/video0`）
-2. OpenAI API 的具体模型名、环境变量与候选词 prompt 尚未写入配置（将在 `project/config` 中落地）
+1. 坐标闭环已完成，但输入仍是 CSV 回放；待接 OpenFace 实时输出流。
+2. 屏幕标定模块（9点）与个体参数保存尚未实现。
 
 ## 6. 下一步实现优先级（代码）
 
@@ -84,7 +97,7 @@
    - 输出基础指标（成功率、帧数、gaze/pose 字段完整性）
 2. 再完成眼控输入 MVP：
    - 标定
-   - dwell 触发（事件流层已具备，待接真实眼控信号源）
+   - dwell 触发（已接坐标命中；待接实时 gaze 信号源）
    - 候选词增强（OpenAI Responses API，LangChain 可选）
 3. 最后补实验脚本：
    - baseline vs 优化方法
@@ -110,4 +123,11 @@ cd /home/lyh/workspace/OpenFace-OpenFace_2.2.0/build_clean/bin
   -mloc model/main_clnf_wild.txt \
   -device 0 \
   -out_dir /home/lyh/workspace/OpenFace-OpenFace_2.2.0/test_cam
+```
+
+坐标命中闭环（已验证）：
+
+```bash
+cd /home/lyh/workspace
+bash run_gaze_pipeline.sh
 ```

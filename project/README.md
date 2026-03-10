@@ -17,6 +17,7 @@
 - `scripts/run_keyboard_mvp.py`：终端版虚拟键盘 MVP（含候选重排）
 - `scripts/summarize_keyboard_session.py`：汇总键盘会话日志（jsonl）
 - `scripts/replay_dwell_targets.py`：回放注视目标序列并触发 dwell 事件
+- `scripts/run_gaze_pipeline.py`：回放 gaze 坐标并执行命中测试 + dwell + 键盘事件
 - `docs/AGENT_HANDOFF.md`：交接上下文
 
 ## 快速开始
@@ -126,3 +127,36 @@ bash run_dwell_replay.sh
 - `key:<text>` -> 输入文本
 - `cand:<index>` -> 选择候选
 - `action:back|commit|clear|refresh` -> 控制事件
+
+## 坐标命中闭环（下一阶段入口）
+
+使用 gaze 坐标 CSV 直接驱动完整事件流：
+
+```bash
+cd /home/lyh/workspace
+bash run_gaze_pipeline.sh
+```
+
+等价命令：
+
+```bash
+cd /home/lyh/workspace/project
+python3 scripts/run_gaze_pipeline.py \
+  --gaze-csv /home/lyh/workspace/project/data/samples/gaze_points_demo.csv \
+  --report-json /home/lyh/workspace/project/data/reports/gaze_pipeline_demo_report.json
+```
+
+输入 CSV 默认字段：
+
+- `timestamp_ms`：毫秒时间戳
+- `gaze_x`：注视点 x（默认假设 0~1）
+- `gaze_y`：注视点 y（默认假设 0~1）
+
+可用参数：
+
+- `--x-min --x-max --y-min --y-max`：将原始坐标线性映射到 0~1（用于后续标定前后对比）
+- `--candidate-slots`：候选区域槽位数量（当前默认布局支持最多 8）
+
+样例文件：
+
+- `data/samples/gaze_points_demo.csv`
