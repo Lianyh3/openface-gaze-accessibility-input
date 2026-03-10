@@ -13,7 +13,7 @@
 ## 2. 已冻结决策
 
 1. 开发环境：Ubuntu（无 GPU）
-2. 主技术栈：Python 主控（必要时热点模块再下沉 C++）
+2. 主技术栈：C++ 核心 + Python 编排（分阶段迁移，保留 Python fallback）
 3. OpenFace：使用官方 OpenFace 2.2.0（源码）
 4. AI 增强：主线直连 OpenAI Responses API（LangChain 降级为可选封装）
 5. Coze：不进入首版（作为可选扩展）
@@ -74,6 +74,13 @@
 4. 样例与报告：
    - `project/data/samples/gaze_points_demo.csv`
    - `project/data/reports/gaze_pipeline_demo_report.json`
+
+## 3.3 架构冻结补充（2026-03-10）
+
+1. 迁移策略冻结为：`C++ 核心 + Python 编排`。
+2. C++ 优先迁移模块：`dwell_detector / gaze_hit_test / calibration / smoothing`。
+3. Python 保留模块：`keyboard_event_flow / candidate_reranker / openai client / scripts`。
+4. 分阶段执行：M0-M4（接口冻结 -> 低风险迁移 -> 算法迁移 -> 实时接入 -> 性能验收）。
 
 ## 4. 关键路径与文档
 
