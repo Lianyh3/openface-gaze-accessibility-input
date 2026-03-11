@@ -15,4 +15,4 @@ if [[ -z "${DISPLAY:-}" ]]; then
 fi
 
 echo
-echo "[OK] GUI env detected. You can run: bash /home/lyh/workspace/run_cam.sh"
+echo "[OK] GUI env detected. You can run: bash /home/lyh/workspace/run.sh cam"

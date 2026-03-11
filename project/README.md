@@ -44,7 +44,7 @@ python3 scripts/run_openface_baseline.py \
 
 ```bash
 cd /home/lyh/workspace
-bash run_eval.sh
+bash run.sh eval
 ```
 
 ## AI 模块选型
@@ -83,14 +83,14 @@ python3 scripts/run_keyboard_mvp.py
 
 ```bash
 cd /home/lyh/workspace
-bash run_keyboard_mvp.sh
+bash run.sh keyboard
 ```
 
 单次重排也有短命令：
 
 ```bash
 cd /home/lyh/workspace
-bash run_rerank_demo.sh
+bash run.sh rerank
 ```
 
 进入交互后可使用：
@@ -107,7 +107,7 @@ bash run_rerank_demo.sh
 
 ```bash
 cd /home/lyh/workspace
-bash run_keyboard_summary.sh
+bash run.sh summary
 ```
 
 ## Dwell 事件回放（眼控接口验证）
@@ -116,7 +116,7 @@ bash run_keyboard_summary.sh
 
 ```bash
 cd /home/lyh/workspace
-bash run_dwell_replay.sh
+bash run.sh dwell
 ```
 
 样例数据：
@@ -135,7 +135,7 @@ bash run_dwell_replay.sh
 
 ```bash
 cd /home/lyh/workspace
-bash run_gaze_pipeline.sh
+bash run.sh gaze
 ```
 
 等价命令：
@@ -168,7 +168,7 @@ python3 scripts/run_gaze_pipeline.py \
 
 ```bash
 cd /home/lyh/workspace
-bash run_fit_calibration.sh
+bash run.sh calib
 ```
 
 等价命令：

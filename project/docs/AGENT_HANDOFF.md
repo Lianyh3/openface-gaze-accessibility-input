@@ -48,9 +48,9 @@
    - `scripts/run_keyboard_mvp.py`
 3. 单次重排验证脚本：
    - `scripts/demo_candidate_rerank.py`
-   - `/home/lyh/workspace/run_rerank_demo.sh`
-   - `/home/lyh/workspace/run_keyboard_mvp.sh`
-   - `/home/lyh/workspace/run_keyboard_summary.sh`
+   - `/home/lyh/workspace/run.sh rerank`
+   - `/home/lyh/workspace/run.sh keyboard`
+   - `/home/lyh/workspace/run.sh summary`
 4. 配置与工厂：
    - `src/gaze_mvp/config_loader.py`
    - `src/gaze_mvp/llm_factory.py`
@@ -60,7 +60,7 @@
 6. 注视目标回放脚本：
    - `scripts/replay_dwell_targets.py`
    - `project/data/samples/dwell_targets_demo.csv`
-   - `/home/lyh/workspace/run_dwell_replay.sh`
+   - `/home/lyh/workspace/run.sh dwell`
 
 ## 3.2 新增模块（2026-03-10）
 
@@ -70,7 +70,7 @@
    - `src/gaze_mvp/gaze_runtime_pipeline.py`
 3. 坐标驱动脚本：
    - `scripts/run_gaze_pipeline.py`
-   - `/home/lyh/workspace/run_gaze_pipeline.sh`
+   - `/home/lyh/workspace/run.sh gaze`
 4. 样例与报告：
    - `project/data/samples/gaze_points_demo.csv`
    - `project/data/reports/gaze_pipeline_demo_report.json`
@@ -89,7 +89,7 @@
    - `scripts/fit_9point_calibration.py`
 2. 标定样例与短命令：
    - `project/data/samples/calibration_points_9_demo.csv`
-   - `/home/lyh/workspace/run_fit_calibration.sh`
+   - `/home/lyh/workspace/run.sh calib`
 3. 主管线接入：
    - `scripts/run_gaze_pipeline.py` 支持 `--calibration-json`
 
@@ -147,5 +147,5 @@ cd /home/lyh/workspace/OpenFace-OpenFace_2.2.0/build_clean/bin
 
 ```bash
 cd /home/lyh/workspace
-bash run_gaze_pipeline.sh
+bash run.sh gaze
 ```
