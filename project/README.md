@@ -157,10 +157,23 @@ python3 scripts/run_gaze_pipeline.py \
 
 - `--x-min --x-max --y-min --y-max`：将原始坐标线性映射到 0~1（用于后续标定前后对比）
 - `--candidate-slots`：候选区域槽位数量（当前默认布局支持最多 8）
+- `--smoothing none|ema|one_euro`：切换时序平滑策略（默认 `none`）
 
 样例文件：
 
 - `data/samples/gaze_points_demo.csv`
+
+平滑开关示例：
+
+```bash
+cd /home/lyh/workspace
+bash run.sh gaze --smoothing ema --ema-alpha 0.35
+```
+
+```bash
+cd /home/lyh/workspace
+bash run.sh gaze --smoothing one_euro --one-euro-min-cutoff 1.0 --one-euro-beta 0.01
+```
 
 ## 9 点标定拟合与接入
 

@@ -45,6 +45,13 @@ class PointNormalizer(Protocol):
         """
 
 
+class PointSmoother(Protocol):
+    def update(self, timestamp_ms: int, x: float, y: float) -> tuple[float, float]:
+        """
+        Smooth normalized gaze coordinates.
+        """
+
+
 class GazeKeyboardRuntime:
     """
     Drive keyboard flow from gaze points:
@@ -57,11 +64,13 @@ class GazeKeyboardRuntime:
         dwell_detector: DwellDetector,
         event_flow: KeyboardEventFlow,
         normalizer: PointNormalizer | None = None,
+        smoother: PointSmoother | None = None,
     ):
         self.hit_tester = hit_tester
         self.dwell_detector = dwell_detector
         self.event_flow = event_flow
         self.normalizer = normalizer or LinearNormalizer()
+        self.smoother = smoother
 
     def process(self, points: Iterable[GazePointObservation]) -> Dict[str, object]:
         total_points = 0
@@ -73,8 +82,13 @@ class GazeKeyboardRuntime:
 
         for point in points:
             total_points += 1
-            norm_x, norm_y = self.normalizer.normalize(point.gaze_x, point.gaze_y)
-            target_id = self.hit_tester.hit_test(norm_x, norm_y)
+            raw_norm_x, raw_norm_y = self.normalizer.normalize(point.gaze_x, point.gaze_y)
+            if self.smoother is None:
+                used_x, used_y = raw_norm_x, raw_norm_y
+            else:
+                used_x, used_y = self.smoother.update(point.timestamp_ms, raw_norm_x, raw_norm_y)
+
+            target_id = self.hit_tester.hit_test(used_x, used_y)
             if target_id:
                 mapped_points += 1
                 target_hit_counts[target_id] = target_hit_counts.get(target_id, 0) + 1
@@ -104,7 +118,8 @@ class GazeKeyboardRuntime:
                 {
                     "timestamp_ms": point.timestamp_ms,
                     "raw_gaze": {"x": point.gaze_x, "y": point.gaze_y},
-                    "normalized_gaze": {"x": norm_x, "y": norm_y},
+                    "normalized_gaze_raw": {"x": raw_norm_x, "y": raw_norm_y},
+                    "normalized_gaze": {"x": used_x, "y": used_y},
                     "target_id": target_id,
                     "event": event.to_dict(),
                     "state": state.to_dict(),

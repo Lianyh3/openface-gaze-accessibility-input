@@ -28,6 +28,7 @@ Examples:
   bash /home/lyh/workspace/run.sh keyboard
   bash /home/lyh/workspace/run.sh rerank "我今天想去" "图书馆,食堂,实验室,操场"
   bash /home/lyh/workspace/run.sh gaze --report-json /tmp/gaze_report.json
+  bash /home/lyh/workspace/run.sh gaze --smoothing one_euro --one-euro-beta 0.01
   bash /home/lyh/workspace/run.sh calib --output-json /tmp/calib.json
 EOF
 }

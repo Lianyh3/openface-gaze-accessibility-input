@@ -93,6 +93,14 @@
 3. 主管线接入：
    - `scripts/run_gaze_pipeline.py` 支持 `--calibration-json`
 
+## 3.5 新增模块（2026-03-11）
+
+1. 时序平滑：
+   - `src/gaze_mvp/gaze_smoothing.py`（`EmaSmoother2D` / `OneEuroSmoother2D`）
+2. 管线接入：
+   - `src/gaze_mvp/gaze_runtime_pipeline.py` 支持可插拔 smoother
+   - `scripts/run_gaze_pipeline.py` 支持 `--smoothing none|ema|one_euro`
+
 ## 4. 关键路径与文档
 
 1. 总规划文档：
@@ -105,7 +113,7 @@
 ## 5. 当前阻塞与待确认
 
 1. 坐标闭环已完成，但输入仍是 CSV 回放；待接 OpenFace 实时输出流。
-2. 已支持离线 9 点标定拟合；在线标定采集界面尚未实现。
+2. 已支持离线 9 点标定拟合与时序平滑；在线标定采集界面尚未实现。
 
 ## 6. 下一步实现优先级（代码）
 

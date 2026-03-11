@@ -17,6 +17,7 @@ from gaze_mvp.candidate_pool import build_default_provider
 from gaze_mvp.calibration import load_affine_calibration
 from gaze_mvp.dwell_detector import DwellDetector
 from gaze_mvp.gaze_hit_test import LayoutPreset, build_default_hit_tester
+from gaze_mvp.gaze_smoothing import EmaSmoother2D, OneEuroSmoother2D
 from gaze_mvp.gaze_runtime_pipeline import GazeKeyboardRuntime, GazePointObservation, LinearNormalizer
 from gaze_mvp.keyboard_event_flow import KeyboardEventFlow, SessionLogger
 from gaze_mvp.keyboard_mvp import KeyboardMVP
@@ -94,6 +95,36 @@ def main() -> int:
         type=Path,
         default=None,
         help="Optional affine calibration JSON (fit via fit_9point_calibration.py).",
+    )
+    parser.add_argument(
+        "--smoothing",
+        choices=("none", "ema", "one_euro"),
+        default="none",
+        help="Optional temporal smoothing for normalized gaze coordinates.",
+    )
+    parser.add_argument(
+        "--ema-alpha",
+        type=float,
+        default=0.4,
+        help="EMA alpha in (0,1], used when --smoothing ema.",
+    )
+    parser.add_argument(
+        "--one-euro-min-cutoff",
+        type=float,
+        default=1.0,
+        help="OneEuro min_cutoff (>0), used when --smoothing one_euro.",
+    )
+    parser.add_argument(
+        "--one-euro-beta",
+        type=float,
+        default=0.01,
+        help="OneEuro beta (>=0), used when --smoothing one_euro.",
+    )
+    parser.add_argument(
+        "--one-euro-d-cutoff",
+        type=float,
+        default=1.0,
+        help="OneEuro derivative cutoff (>0), used when --smoothing one_euro.",
     )
     parser.add_argument(
         "--x-min",
@@ -183,6 +214,25 @@ def main() -> int:
             "clamp": not args.no_clamp,
         }
 
+    if args.smoothing == "none":
+        smoother = None
+        smoothing_detail = {"mode": "none"}
+    elif args.smoothing == "ema":
+        smoother = EmaSmoother2D(alpha=args.ema_alpha)
+        smoothing_detail = {"mode": "ema", "ema_alpha": args.ema_alpha}
+    else:
+        smoother = OneEuroSmoother2D(
+            min_cutoff=args.one_euro_min_cutoff,
+            beta=args.one_euro_beta,
+            d_cutoff=args.one_euro_d_cutoff,
+        )
+        smoothing_detail = {
+            "mode": "one_euro",
+            "min_cutoff": args.one_euro_min_cutoff,
+            "beta": args.one_euro_beta,
+            "d_cutoff": args.one_euro_d_cutoff,
+        }
+
     points = _read_points(
         csv_path=args.gaze_csv,
         timestamp_col=args.timestamp_col,
@@ -194,6 +244,7 @@ def main() -> int:
         dwell_detector=detector,
         event_flow=flow,
         normalizer=normalizer,
+        smoother=smoother,
     )
     result = runtime.process(points)
 
@@ -212,6 +263,7 @@ def main() -> int:
         "candidate_limit": args.candidate_limit,
         "candidate_slots": args.candidate_slots,
         "normalization": normalization_detail,
+        "smoothing": smoothing_detail,
         "session_log": str(session_log),
         "layout": hit_tester.layout_summary(),
         "result": result,
