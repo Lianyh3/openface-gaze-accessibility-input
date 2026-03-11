@@ -1,6 +1,6 @@
 # 毕设项目交接文档（Agent Handoff）
 
-更新时间：2026-03-10
+更新时间：2026-03-11
 
 ## 1. 课题与目标
 
@@ -82,6 +82,17 @@
 3. Python 保留模块：`keyboard_event_flow / candidate_reranker / openai client / scripts`。
 4. 分阶段执行：M0-M4（接口冻结 -> 低风险迁移 -> 算法迁移 -> 实时接入 -> 性能验收）。
 
+## 3.4 新增模块（2026-03-11）
+
+1. 9 点标定拟合与参数加载：
+   - `src/gaze_mvp/calibration.py`
+   - `scripts/fit_9point_calibration.py`
+2. 标定样例与短命令：
+   - `project/data/samples/calibration_points_9_demo.csv`
+   - `/home/lyh/workspace/run_fit_calibration.sh`
+3. 主管线接入：
+   - `scripts/run_gaze_pipeline.py` 支持 `--calibration-json`
+
 ## 4. 关键路径与文档
 
 1. 总规划文档：
@@ -94,7 +105,7 @@
 ## 5. 当前阻塞与待确认
 
 1. 坐标闭环已完成，但输入仍是 CSV 回放；待接 OpenFace 实时输出流。
-2. 屏幕标定模块（9点）与个体参数保存尚未实现。
+2. 已支持离线 9 点标定拟合；在线标定采集界面尚未实现。
 
 ## 6. 下一步实现优先级（代码）
 

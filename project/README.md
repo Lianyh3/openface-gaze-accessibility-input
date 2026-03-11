@@ -18,6 +18,7 @@
 - `scripts/summarize_keyboard_session.py`：汇总键盘会话日志（jsonl）
 - `scripts/replay_dwell_targets.py`：回放注视目标序列并触发 dwell 事件
 - `scripts/run_gaze_pipeline.py`：回放 gaze 坐标并执行命中测试 + dwell + 键盘事件
+- `scripts/fit_9point_calibration.py`：根据 9 点标定样本拟合仿射映射参数
 - `docs/AGENT_HANDOFF.md`：交接上下文
 
 ## 快速开始
@@ -160,3 +161,30 @@ python3 scripts/run_gaze_pipeline.py \
 样例文件：
 
 - `data/samples/gaze_points_demo.csv`
+
+## 9 点标定拟合与接入
+
+拟合标定参数（样例）：
+
+```bash
+cd /home/lyh/workspace
+bash run_fit_calibration.sh
+```
+
+等价命令：
+
+```bash
+cd /home/lyh/workspace/project
+python3 scripts/fit_9point_calibration.py \
+  --points-csv /home/lyh/workspace/project/data/samples/calibration_points_9_demo.csv \
+  --output-json /home/lyh/workspace/project/data/calibration/latest_affine_calibration.json
+```
+
+在 gaze 管线中使用标定参数：
+
+```bash
+cd /home/lyh/workspace/project
+python3 scripts/run_gaze_pipeline.py \
+  --gaze-csv /home/lyh/workspace/project/data/samples/gaze_points_demo.csv \
+  --calibration-json /home/lyh/workspace/project/data/calibration/latest_affine_calibration.json
+```

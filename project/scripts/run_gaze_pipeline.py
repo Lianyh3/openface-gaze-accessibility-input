@@ -14,6 +14,7 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from gaze_mvp.candidate_pool import build_default_provider
+from gaze_mvp.calibration import load_affine_calibration
 from gaze_mvp.dwell_detector import DwellDetector
 from gaze_mvp.gaze_hit_test import LayoutPreset, build_default_hit_tester
 from gaze_mvp.gaze_runtime_pipeline import GazeKeyboardRuntime, GazePointObservation, LinearNormalizer
@@ -89,6 +90,12 @@ def main() -> int:
         help="Candidate hit-test slot count in layout (<=8 in current preset).",
     )
     parser.add_argument(
+        "--calibration-json",
+        type=Path,
+        default=None,
+        help="Optional affine calibration JSON (fit via fit_9point_calibration.py).",
+    )
+    parser.add_argument(
         "--x-min",
         type=float,
         default=0.0,
@@ -133,6 +140,8 @@ def main() -> int:
 
     if not args.gaze_csv.exists():
         raise SystemExit(f"Gaze CSV not found: {args.gaze_csv}")
+    if args.calibration_json is not None and not args.calibration_json.exists():
+        raise SystemExit(f"Calibration JSON not found: {args.calibration_json}")
 
     config, reranker = build_reranker_from_config(args.config)
     dwell_ms = args.dwell_ms if args.dwell_ms is not None else config.dwell_ms
@@ -148,13 +157,31 @@ def main() -> int:
 
     hit_tester = build_default_hit_tester(LayoutPreset(candidate_slots=args.candidate_slots))
     detector = DwellDetector(dwell_ms=dwell_ms)
-    normalizer = LinearNormalizer(
-        x_min=args.x_min,
-        x_max=args.x_max,
-        y_min=args.y_min,
-        y_max=args.y_max,
-        clamp=not args.no_clamp,
-    )
+    normalization_mode = "linear_minmax"
+    if args.calibration_json is not None:
+        normalizer = load_affine_calibration(args.calibration_json)
+        normalization_mode = "affine_calibration"
+        normalization_detail = {
+            "mode": normalization_mode,
+            "calibration_json": str(args.calibration_json),
+            "model": normalizer.to_dict(),
+        }
+    else:
+        normalizer = LinearNormalizer(
+            x_min=args.x_min,
+            x_max=args.x_max,
+            y_min=args.y_min,
+            y_max=args.y_max,
+            clamp=not args.no_clamp,
+        )
+        normalization_detail = {
+            "mode": normalization_mode,
+            "x_min": args.x_min,
+            "x_max": args.x_max,
+            "y_min": args.y_min,
+            "y_max": args.y_max,
+            "clamp": not args.no_clamp,
+        }
 
     points = _read_points(
         csv_path=args.gaze_csv,
@@ -184,13 +211,7 @@ def main() -> int:
         "dwell_ms": dwell_ms,
         "candidate_limit": args.candidate_limit,
         "candidate_slots": args.candidate_slots,
-        "normalizer": {
-            "x_min": args.x_min,
-            "x_max": args.x_max,
-            "y_min": args.y_min,
-            "y_max": args.y_max,
-            "clamp": not args.no_clamp,
-        },
+        "normalization": normalization_detail,
         "session_log": str(session_log),
         "layout": hit_tester.layout_summary(),
         "result": result,

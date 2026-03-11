@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, Iterable, List
+from typing import Dict, Iterable, List, Protocol
 
 from gaze_mvp.dwell_detector import DwellDetector, GazeObservation
 from gaze_mvp.gaze_hit_test import KeyboardHitTester
@@ -38,6 +38,13 @@ class LinearNormalizer:
         return nx, ny
 
 
+class PointNormalizer(Protocol):
+    def normalize(self, x: float, y: float) -> tuple[float, float]:
+        """
+        Map raw gaze coordinates into normalized keyboard coordinates.
+        """
+
+
 class GazeKeyboardRuntime:
     """
     Drive keyboard flow from gaze points:
@@ -49,7 +56,7 @@ class GazeKeyboardRuntime:
         hit_tester: KeyboardHitTester,
         dwell_detector: DwellDetector,
         event_flow: KeyboardEventFlow,
-        normalizer: LinearNormalizer | None = None,
+        normalizer: PointNormalizer | None = None,
     ):
         self.hit_tester = hit_tester
         self.dwell_detector = dwell_detector

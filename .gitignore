@@ -24,7 +24,7 @@ third_party/
 project/data/raw/
 project/data/runs/
 project/data/logs/
+project/data/calibration/
 
 # Keep reports out of Git by default (can upload selected reports manually later)
 project/data/reports/
-
