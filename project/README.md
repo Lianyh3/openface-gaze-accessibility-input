@@ -16,6 +16,7 @@
 - `scripts/demo_candidate_rerank.py`：单次候选词重排（OpenAI + 回退）
 - `scripts/run_keyboard_mvp.py`：终端版虚拟键盘 MVP（含候选重排）
 - `scripts/summarize_keyboard_session.py`：汇总键盘会话日志（jsonl）
+- `scripts/evaluate_keyboard_task.py`：评估固定测试句任务（CER/CPM/WPM + 交互指标）
 - `scripts/replay_dwell_targets.py`：回放注视目标序列并触发 dwell 事件
 - `scripts/run_gaze_pipeline.py`：回放 gaze 坐标并执行命中测试 + dwell + 键盘事件
 - `scripts/run_openface_live_pipeline.py`：启动 OpenFace 摄像头并实时驱动命中+dwell+键盘事件流
@@ -117,6 +118,44 @@ bash run.sh summary
 - 候选曝光统计：`candidate_exposure_total / top_exposed_candidates`
 - dwell 触发时长统计：`dwell_elapsed_ms_summary`（mean/p50/p90）
 - 撤销统计：`backspace_count / undo_backspace_count`
+
+## 固定测试句评估（CER/WPM/CPM）
+
+默认评估最新日志 + `T01` 目标句：
+
+```bash
+cd /home/lyh/workspace
+bash run.sh task-eval
+```
+
+指定目标句：
+
+```bash
+cd /home/lyh/workspace
+bash run.sh task-eval "我今天想去图书馆"
+```
+
+直接脚本（单次）：
+
+```bash
+cd /home/lyh/workspace/project
+python3 scripts/evaluate_keyboard_task.py \
+  --session-log /path/to/session.jsonl \
+  --target-text "我今天想去图书馆"
+```
+
+批量映射评估（CSV）：
+
+```bash
+cd /home/lyh/workspace/project
+python3 scripts/evaluate_keyboard_task.py \
+  --mapping-csv /path/to/session_target_mapping.csv \
+  --report-json /home/lyh/workspace/project/data/reports/keyboard_task_batch_report.json
+```
+
+样例任务清单：
+
+- `data/samples/fixed_text_tasks_v1.csv`（`task_id,target_text,note`）
 
 ## Dwell 事件回放（眼控接口验证）
 

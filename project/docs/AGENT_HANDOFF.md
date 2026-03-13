@@ -131,6 +131,19 @@
    - dwell 时长统计（mean/p50/p90）
    - 撤销统计（`backspace_count` / `undo_backspace_count`）
 
+## 3.9 新增模块（2026-03-13）
+
+1. 固定测试句评估脚本：
+   - `scripts/evaluate_keyboard_task.py`
+2. 任务样例定义：
+   - `data/samples/fixed_text_tasks_v1.csv`
+3. 统一入口支持：
+   - `/home/lyh/workspace/run.sh task-eval`
+4. 能力：
+   - 单次/批量评估会话日志，输出 `CER / CPM / WPM(5char)`。
+   - 兼容旧日志与新日志字段（无 `metrics/analysis` 时自动降级）。
+   - 聚合输出 `exact_match_rate`、平均 CER、平均输入速度与事件统计。
+
 ## 4. 关键路径与文档
 
 1. 总规划文档：
@@ -144,7 +157,7 @@
 
 1. OpenFace 实时输出流已接入，待补实机长时稳定性数据（多光照、多头姿）。
 2. 已支持离线拟合 + 在线9点采集（终端引导）；后续可补图形化采集界面。
-3. 候选曝光/dwell/撤销日志指标已接入，待结合固定测试句产出 CER/WPM 对比表。
+3. 固定测试句评估脚本已接入，待执行多轮实测并产出第5章对比表。
 
 ## 6. 下一步实现优先级（代码）
 
