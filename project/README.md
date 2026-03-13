@@ -18,6 +18,7 @@
 - `scripts/summarize_keyboard_session.py`：汇总键盘会话日志（jsonl）
 - `scripts/replay_dwell_targets.py`：回放注视目标序列并触发 dwell 事件
 - `scripts/run_gaze_pipeline.py`：回放 gaze 坐标并执行命中测试 + dwell + 键盘事件
+- `scripts/run_openface_live_pipeline.py`：启动 OpenFace 摄像头并实时驱动命中+dwell+键盘事件流
 - `scripts/fit_9point_calibration.py`：根据 9 点标定样本拟合仿射映射参数
 - `scripts/collect_9point_calibration.py`：在线引导采集 9 点标定数据（从增长中的CSV读取）
 - `docs/AGENT_HANDOFF.md`：交接上下文
@@ -163,6 +164,33 @@ python3 scripts/run_gaze_pipeline.py \
 样例文件：
 
 - `data/samples/gaze_points_demo.csv`
+
+## OpenFace 实时接入（摄像头 -> 输入事件）
+
+直接启动 OpenFace 并实时读取增长中的 CSV，驱动 `hit-test -> dwell -> keyboard`：
+
+```bash
+cd /home/lyh/workspace
+bash run.sh gaze-live --max-seconds 20 --print-events
+```
+
+等价命令：
+
+```bash
+cd /home/lyh/workspace/project
+python3 scripts/run_openface_live_pipeline.py \
+  --device 0 \
+  --max-seconds 20 \
+  --print-events \
+  --report-json /home/lyh/workspace/project/data/reports/gaze_live_latest_report.json
+```
+
+常用参数：
+
+- `--x-col/--y-col`：默认读取 OpenFace 的 `gaze_angle_x/gaze_angle_y`
+- `--x-min/--x-max/--y-min/--y-max`：线性归一化区间（未加载标定 JSON 时生效）
+- `--calibration-json`：加载 9 点标定参数，优先替代线性区间归一化
+- `--export-gaze-csv`：导出 `timestamp_ms,gaze_x,gaze_y`，可直接用于后续在线标定采集链路
 
 平滑开关示例：
 

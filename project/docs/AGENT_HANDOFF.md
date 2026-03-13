@@ -1,6 +1,6 @@
 # 毕设项目交接文档（Agent Handoff）
 
-更新时间：2026-03-11
+更新时间：2026-03-13
 
 ## 1. 课题与目标
 
@@ -108,6 +108,17 @@
 2. 统一入口支持：
    - `/home/lyh/workspace/run.sh calib-collect --source-csv <path>`
 
+## 3.7 新增模块（2026-03-13）
+
+1. OpenFace 实时接入主脚本：
+   - `scripts/run_openface_live_pipeline.py`
+2. 统一入口支持：
+   - `/home/lyh/workspace/run.sh gaze-live`
+3. 能力：
+   - 启动 OpenFace 摄像头采集并轮询增长中的输出 CSV
+   - 将 `gaze_angle_x/gaze_angle_y` 映射到现有 `hit-test -> dwell -> keyboard` 事件链路
+   - 支持 `--export-gaze-csv` 输出 `timestamp_ms,gaze_x,gaze_y`，用于标定采集链路复用
+
 ## 4. 关键路径与文档
 
 1. 总规划文档：
@@ -119,7 +130,7 @@
 
 ## 5. 当前阻塞与待确认
 
-1. 坐标闭环已完成，但输入仍是 CSV 回放；待接 OpenFace 实时输出流。
+1. OpenFace 实时输出流已接入，待补实机长时稳定性数据（多光照、多头姿）。
 2. 已支持离线拟合 + 在线9点采集（终端引导）；后续可补图形化采集界面。
 
 ## 6. 下一步实现优先级（代码）
@@ -130,7 +141,7 @@
    - 输出基础指标（成功率、帧数、gaze/pose 字段完整性）
 2. 再完成眼控输入 MVP：
    - 标定
-   - dwell 触发（已接坐标命中；待接实时 gaze 信号源）
+   - dwell 触发（已接坐标命中与 OpenFace 实时信号源）
    - 候选词增强（OpenAI Responses API，LangChain 可选）
 3. 最后补实验脚本：
    - baseline vs 优化方法
@@ -163,4 +174,11 @@ cd /home/lyh/workspace/OpenFace-OpenFace_2.2.0/build_clean/bin
 ```bash
 cd /home/lyh/workspace
 bash run.sh gaze
+```
+
+OpenFace 实时输入闭环（新增）：
+
+```bash
+cd /home/lyh/workspace
+bash run.sh gaze-live --max-seconds 20 --print-events
 ```
