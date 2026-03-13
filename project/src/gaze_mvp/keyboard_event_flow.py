@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Tuple
@@ -16,6 +16,7 @@ class DwellEvent:
     kind: str
     payload: Dict[str, Any]
     timestamp_utc: str
+    metrics: Dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -27,10 +28,30 @@ class SessionLogger:
         self.log_path.parent.mkdir(parents=True, exist_ok=True)
 
     def append(self, event: DwellEvent, before_state: KeyboardState, after_state: KeyboardState) -> None:
+        backspace_scope = "none"
+        if event.kind == "backspace":
+            if before_state.composing_buffer:
+                backspace_scope = "composing_buffer"
+            elif before_state.committed_text:
+                backspace_scope = "committed_text"
+            else:
+                backspace_scope = "noop"
+
+        analysis = {
+            "committed_len_delta": len(after_state.committed_text) - len(before_state.committed_text),
+            "composing_len_delta": len(after_state.composing_buffer) - len(before_state.composing_buffer),
+            "before_candidate_count": len(before_state.ranked_candidates),
+            "after_candidate_count": len(after_state.ranked_candidates),
+            # Candidate list that user could see after this event.
+            "exposed_candidates": list(after_state.ranked_candidates),
+            "backspace_scope": backspace_scope,
+        }
+
         record = {
             "event": event.to_dict(),
             "before": before_state.to_dict(),
             "after": after_state.to_dict(),
+            "analysis": analysis,
         }
         with self.log_path.open("a", encoding="utf-8") as f:
             f.write(json.dumps(record, ensure_ascii=False))
@@ -56,11 +77,17 @@ class KeyboardEventFlow:
         self.candidate_limit = candidate_limit
         self._event_seq = 1
 
-    def _new_event(self, kind: str, payload: Dict[str, Any] | None = None) -> DwellEvent:
+    def _new_event(
+        self,
+        kind: str,
+        payload: Dict[str, Any] | None = None,
+        metrics: Dict[str, Any] | None = None,
+    ) -> DwellEvent:
         event = DwellEvent(
             event_id=self._event_seq,
             kind=kind,
             payload=(payload or {}),
+            metrics=(dict(metrics) if metrics else {}),
             timestamp_utc=datetime.now(timezone.utc).isoformat(),
         )
         self._event_seq += 1
@@ -79,8 +106,13 @@ class KeyboardEventFlow:
         if self.session_logger is not None:
             self.session_logger.append(event=event, before_state=before, after_state=after)
 
-    def dispatch(self, kind: str, payload: Dict[str, Any] | None = None) -> Tuple[KeyboardState, DwellEvent]:
-        event = self._new_event(kind=kind, payload=payload)
+    def dispatch(
+        self,
+        kind: str,
+        payload: Dict[str, Any] | None = None,
+        metrics: Dict[str, Any] | None = None,
+    ) -> Tuple[KeyboardState, DwellEvent]:
+        event = self._new_event(kind=kind, payload=payload, metrics=metrics)
         before_state = self.keyboard.get_state()
 
         if kind == "key_input":

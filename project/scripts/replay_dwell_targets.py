@@ -76,11 +76,14 @@ def main() -> int:
     observations = _read_observations(args.targets_csv)
     emitted = []
     for obs in observations:
-        event = detector.update(obs)
-        if event is None:
+        emission = detector.update(obs)
+        if emission is None:
             continue
-        kind, payload = event
-        state, logged_event = flow.dispatch(kind=kind, payload=payload)
+        state, logged_event = flow.dispatch(
+            kind=emission.kind,
+            payload=dict(emission.payload),
+            metrics=emission.to_metrics(),
+        )
         emitted.append(
             {
                 "at_ms": obs.timestamp_ms,

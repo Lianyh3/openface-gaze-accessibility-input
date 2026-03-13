@@ -119,6 +119,18 @@
    - 将 `gaze_angle_x/gaze_angle_y` 映射到现有 `hit-test -> dwell -> keyboard` 事件链路
    - 支持 `--export-gaze-csv` 输出 `timestamp_ms,gaze_x,gaze_y`，用于标定采集链路复用
 
+## 3.8 新增模块（2026-03-13）
+
+1. 交互日志增强：
+   - `src/gaze_mvp/dwell_detector.py`（新增 dwell 触发元信息）
+   - `src/gaze_mvp/keyboard_event_flow.py`（日志新增 `event.metrics` 与 `analysis`）
+2. 汇总能力增强：
+   - `scripts/summarize_keyboard_session.py`
+3. 能力：
+   - 候选曝光统计（总曝光/Top曝光词）
+   - dwell 时长统计（mean/p50/p90）
+   - 撤销统计（`backspace_count` / `undo_backspace_count`）
+
 ## 4. 关键路径与文档
 
 1. 总规划文档：
@@ -132,6 +144,7 @@
 
 1. OpenFace 实时输出流已接入，待补实机长时稳定性数据（多光照、多头姿）。
 2. 已支持离线拟合 + 在线9点采集（终端引导）；后续可补图形化采集界面。
+3. 候选曝光/dwell/撤销日志指标已接入，待结合固定测试句产出 CER/WPM 对比表。
 
 ## 6. 下一步实现优先级（代码）
 

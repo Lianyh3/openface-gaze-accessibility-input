@@ -10,6 +10,25 @@ class GazeObservation:
     target_id: str
 
 
+@dataclass(frozen=True)
+class DwellEmission:
+    kind: str
+    payload: Dict[str, object]
+    target_id: str
+    dwell_started_ms: int
+    dwell_elapsed_ms: int
+    emitted_at_ms: int
+
+    def to_metrics(self) -> Dict[str, object]:
+        return {
+            "trigger_source": "dwell",
+            "target_id": self.target_id,
+            "dwell_started_ms": self.dwell_started_ms,
+            "dwell_elapsed_ms": self.dwell_elapsed_ms,
+            "emitted_at_ms": self.emitted_at_ms,
+        }
+
+
 def parse_target_to_event(target_id: str) -> Tuple[str, Dict[str, object]] | None:
     """
     Convert a hit-tested gaze target into keyboard event kind + payload.
@@ -65,7 +84,7 @@ class DwellDetector:
         self._target_start_ms = None
         self._emitted_for_active = False
 
-    def update(self, obs: GazeObservation) -> Tuple[str, Dict[str, object]] | None:
+    def update(self, obs: GazeObservation) -> DwellEmission | None:
         target_id = obs.target_id.strip()
         if not target_id:
             self.reset()
@@ -87,4 +106,14 @@ class DwellDetector:
 
         event = parse_target_to_event(target_id)
         self._emitted_for_active = True
-        return event
+        if event is None:
+            return None
+        kind, payload = event
+        return DwellEmission(
+            kind=kind,
+            payload=payload,
+            target_id=target_id,
+            dwell_started_ms=self._target_start_ms,
+            dwell_elapsed_ms=elapsed,
+            emitted_at_ms=obs.timestamp_ms,
+        )

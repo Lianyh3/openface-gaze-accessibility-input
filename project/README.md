@@ -112,6 +112,12 @@ cd /home/lyh/workspace
 bash run.sh summary
 ```
 
+汇总报告新增交互指标（用于论文第5章）：
+
+- 候选曝光统计：`candidate_exposure_total / top_exposed_candidates`
+- dwell 触发时长统计：`dwell_elapsed_ms_summary`（mean/p50/p90）
+- 撤销统计：`backspace_count / undo_backspace_count`
+
 ## Dwell 事件回放（眼控接口验证）
 
 使用样例注视目标序列回放：

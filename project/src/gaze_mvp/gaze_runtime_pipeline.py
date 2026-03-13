@@ -93,15 +93,20 @@ class GazeKeyboardRuntime:
                 mapped_points += 1
                 target_hit_counts[target_id] = target_hit_counts.get(target_id, 0) + 1
 
-            event_tuple = self.dwell_detector.update(
+            emission = self.dwell_detector.update(
                 GazeObservation(timestamp_ms=point.timestamp_ms, target_id=target_id)
             )
-            if event_tuple is None:
+            if emission is None:
                 continue
 
-            kind, payload = event_tuple
+            kind = emission.kind
+            payload = dict(emission.payload)
             try:
-                state, event = self.event_flow.dispatch(kind=kind, payload=payload)
+                state, event = self.event_flow.dispatch(
+                    kind=kind,
+                    payload=payload,
+                    metrics=emission.to_metrics(),
+                )
             except Exception as exc:
                 dispatch_errors.append(
                     {

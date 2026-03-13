@@ -93,6 +93,7 @@ def main() -> int:
         parts = shlex.split(line)
         command = parts[0].lower()
         arg = line[len(parts[0]) :].strip()
+        cli_metrics = {"trigger_source": "manual_cli", "command": command}
 
         try:
             if command == "quit":
@@ -101,30 +102,34 @@ def main() -> int:
                 print(_usage(), end="")
                 continue
             if command == "status":
-                state, _ = flow.dispatch(kind="status")
+                state, _ = flow.dispatch(kind="status", metrics=cli_metrics)
                 _print_state(state.to_dict())
             elif command in ("dwell_key", "type"):
-                state, _ = flow.dispatch(kind="key_input", payload={"text": arg})
+                state, _ = flow.dispatch(kind="key_input", payload={"text": arg}, metrics=cli_metrics)
                 _print_state(state.to_dict())
             elif command == "cand":
                 candidates = [c.strip() for c in arg.split(",") if c.strip()]
-                state, _ = flow.dispatch(kind="manual_candidates", payload={"candidates": candidates})
+                state, _ = flow.dispatch(
+                    kind="manual_candidates",
+                    payload={"candidates": candidates},
+                    metrics=cli_metrics,
+                )
                 _print_state(state.to_dict())
             elif command in ("dwell_pick", "pick"):
                 index = int(arg)
-                state, _ = flow.dispatch(kind="candidate_pick", payload={"index": index})
+                state, _ = flow.dispatch(kind="candidate_pick", payload={"index": index}, metrics=cli_metrics)
                 _print_state(state.to_dict())
             elif command in ("dwell_back", "back"):
-                state, _ = flow.dispatch(kind="backspace")
+                state, _ = flow.dispatch(kind="backspace", metrics=cli_metrics)
                 _print_state(state.to_dict())
             elif command in ("dwell_commit", "commit"):
-                state, _ = flow.dispatch(kind="commit_direct")
+                state, _ = flow.dispatch(kind="commit_direct", metrics=cli_metrics)
                 _print_state(state.to_dict())
             elif command in ("dwell_clear", "clear"):
-                state, _ = flow.dispatch(kind="clear")
+                state, _ = flow.dispatch(kind="clear", metrics=cli_metrics)
                 _print_state(state.to_dict())
             elif command == "refresh":
-                state, _ = flow.dispatch(kind="candidate_refresh")
+                state, _ = flow.dispatch(kind="candidate_refresh", metrics=cli_metrics)
                 _print_state(state.to_dict())
             else:
                 print(f"Unknown command: {command}")
