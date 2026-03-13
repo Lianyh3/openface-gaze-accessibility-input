@@ -101,6 +101,13 @@
    - `src/gaze_mvp/gaze_runtime_pipeline.py` 支持可插拔 smoother
    - `scripts/run_gaze_pipeline.py` 支持 `--smoothing none|ema|one_euro`
 
+## 3.6 新增模块（2026-03-13）
+
+1. 在线 9 点采集（终端引导）：
+   - `scripts/collect_9point_calibration.py`
+2. 统一入口支持：
+   - `/home/lyh/workspace/run.sh calib-collect --source-csv <path>`
+
 ## 4. 关键路径与文档
 
 1. 总规划文档：
@@ -113,7 +120,7 @@
 ## 5. 当前阻塞与待确认
 
 1. 坐标闭环已完成，但输入仍是 CSV 回放；待接 OpenFace 实时输出流。
-2. 已支持离线 9 点标定拟合与时序平滑；在线标定采集界面尚未实现。
+2. 已支持离线拟合 + 在线9点采集（终端引导）；后续可补图形化采集界面。
 
 ## 6. 下一步实现优先级（代码）
 

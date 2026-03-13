@@ -20,6 +20,7 @@ Commands:
   dwell      Replay dwell target timeline
   gaze       Run gaze->hit-test->dwell->keyboard pipeline
   calib      Fit 9-point affine calibration from sample CSV
+  calib-collect  Collect online 9-point calibration points from growing CSV
   help       Show this help message
 
 Examples:
@@ -30,6 +31,7 @@ Examples:
   bash /home/lyh/workspace/run.sh gaze --report-json /tmp/gaze_report.json
   bash /home/lyh/workspace/run.sh gaze --smoothing one_euro --one-euro-beta 0.01
   bash /home/lyh/workspace/run.sh calib --output-json /tmp/calib.json
+  bash /home/lyh/workspace/run.sh calib-collect --source-csv /tmp/live_gaze.csv --auto-start
 EOF
 }
 
@@ -98,6 +100,10 @@ case "$cmd" in
     python3 "$PROJECT/scripts/fit_9point_calibration.py" \
       --points-csv "$PROJECT/data/samples/calibration_points_9_demo.csv" \
       "$@"
+    ;;
+  calib-collect)
+    shift
+    python3 "$PROJECT/scripts/collect_9point_calibration.py" "$@"
     ;;
   *)
     echo "Unknown command: $cmd" >&2

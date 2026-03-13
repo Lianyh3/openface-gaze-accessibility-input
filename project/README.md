@@ -19,6 +19,7 @@
 - `scripts/replay_dwell_targets.py`：回放注视目标序列并触发 dwell 事件
 - `scripts/run_gaze_pipeline.py`：回放 gaze 坐标并执行命中测试 + dwell + 键盘事件
 - `scripts/fit_9point_calibration.py`：根据 9 点标定样本拟合仿射映射参数
+- `scripts/collect_9point_calibration.py`：在线引导采集 9 点标定数据（从增长中的CSV读取）
 - `docs/AGENT_HANDOFF.md`：交接上下文
 
 ## 快速开始
@@ -201,3 +202,18 @@ python3 scripts/run_gaze_pipeline.py \
   --gaze-csv /home/lyh/workspace/project/data/samples/gaze_points_demo.csv \
   --calibration-json /home/lyh/workspace/project/data/calibration/latest_affine_calibration.json
 ```
+
+在线 9 点采集（实时引导）：
+
+```bash
+cd /home/lyh/workspace
+bash run.sh calib-collect --source-csv /path/to/live_gaze.csv --auto-start
+```
+
+说明：
+
+- `--source-csv` 应为实时增长的 CSV（至少包含 `gaze_x,gaze_y` 列）。
+- 脚本会逐点采集并输出：
+  - 标定点CSV：`data/calibration/sessions/latest_calibration_points.csv`
+  - 拟合参数：`data/calibration/latest_affine_calibration.json`
+  - 采集报告：`data/reports/latest_calibration_collection_report.json`
