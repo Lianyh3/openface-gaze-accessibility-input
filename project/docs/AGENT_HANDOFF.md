@@ -1,6 +1,6 @@
 # 毕设项目交接文档（Agent Handoff）
 
-更新时间：2026-03-13
+更新时间：2026-03-14
 
 ## 1. 课题与目标
 
@@ -144,6 +144,21 @@
    - 兼容旧日志与新日志字段（无 `metrics/analysis` 时自动降级）。
    - 聚合输出 `exact_match_rate`、平均 CER、平均输入速度与事件统计。
 
+## 3.10 新增模块（2026-03-14）
+
+1. M0 跨语言接口契约：
+   - `cpp_core/include/gaze_core/contracts.hpp`
+   - `src/gaze_mvp/runtime_contract.py`
+2. 对齐样例与校验脚本：
+   - `data/samples/m0_interface_alignment_samples.json`
+   - `scripts/check_m0_contract.py`
+3. 统一入口支持：
+   - `/home/lyh/workspace/run.sh m0-check`
+4. 能力：
+   - 冻结 `FrameFeatures / GazePoint / TargetEvent` 字段定义
+   - 支持用真实 session log 事件映射校验 `TargetEvent` 契约
+   - 产出 `m0_contract_check_report.json` 作为接口冻结证据
+
 ## 4. 关键路径与文档
 
 1. 总规划文档：
@@ -158,6 +173,7 @@
 1. OpenFace 实时输出流已接入，待补实机长时稳定性数据（多光照、多头姿）。
 2. 已支持离线拟合 + 在线9点采集（终端引导）；后续可补图形化采集界面。
 3. 固定测试句评估脚本已接入，待执行多轮实测并产出第5章对比表。
+4. M0 接口冻结已完成，下一步进入 M1（`normalizer/hit_test/dwell` C++ 迁移）。
 
 ## 6. 下一步实现优先级（代码）
 

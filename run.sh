@@ -17,6 +17,7 @@ Commands:
   keyboard   Start keyboard MVP CLI
   summary    Summarize latest keyboard session logs
   task-eval  Evaluate keyboard text task (CER/CPM/WPM)
+  m0-check   Validate M0 C++/Python runtime interface contract
   rerank     Run candidate rerank demo
   dwell      Replay dwell target timeline
   gaze       Run gaze->hit-test->dwell->keyboard pipeline
@@ -30,6 +31,7 @@ Examples:
   bash /home/lyh/workspace/run.sh eval
   bash /home/lyh/workspace/run.sh keyboard
   bash /home/lyh/workspace/run.sh task-eval "我今天想去图书馆"
+  bash /home/lyh/workspace/run.sh m0-check
   bash /home/lyh/workspace/run.sh rerank "我今天想去" "图书馆,食堂,实验室,操场"
   bash /home/lyh/workspace/run.sh gaze --report-json /tmp/gaze_report.json
   bash /home/lyh/workspace/run.sh gaze --smoothing one_euro --one-euro-beta 0.01
@@ -85,6 +87,12 @@ case "$cmd" in
         --report-json "$PROJECT/data/reports/keyboard_task_latest_report.json" \
         "$@"
     fi
+    ;;
+  m0-check)
+    shift
+    python3 "$PROJECT/scripts/check_m0_contract.py" \
+      --report-json "$PROJECT/data/reports/m0_contract_check_report.json" \
+      "$@"
     ;;
   rerank)
     shift

@@ -9,6 +9,7 @@
 ## 目录
 
 - `config/default.json`：默认配置
+- `cpp_core/`：C++ 实时核心预留目录（含 M0 契约头文件）
 - `src/gaze_mvp/`：核心模块
 - `scripts/run_openface_baseline.py`：一键调用 OpenFace + 统计
 - `scripts/summarize_openface_csv.py`：仅统计现有 CSV
@@ -17,6 +18,7 @@
 - `scripts/run_keyboard_mvp.py`：终端版虚拟键盘 MVP（含候选重排）
 - `scripts/summarize_keyboard_session.py`：汇总键盘会话日志（jsonl）
 - `scripts/evaluate_keyboard_task.py`：评估固定测试句任务（CER/CPM/WPM + 交互指标）
+- `scripts/check_m0_contract.py`：校验 M0 跨语言接口契约（FrameFeatures/GazePoint/TargetEvent）
 - `scripts/replay_dwell_targets.py`：回放注视目标序列并触发 dwell 事件
 - `scripts/run_gaze_pipeline.py`：回放 gaze 坐标并执行命中测试 + dwell + 键盘事件
 - `scripts/run_openface_live_pipeline.py`：启动 OpenFace 摄像头并实时驱动命中+dwell+键盘事件流
@@ -156,6 +158,21 @@ python3 scripts/evaluate_keyboard_task.py \
 样例任务清单：
 
 - `data/samples/fixed_text_tasks_v1.csv`（`task_id,target_text,note`）
+
+## M0 跨语言接口冻结校验
+
+运行 M0 契约检查：
+
+```bash
+cd /home/lyh/workspace
+bash run.sh m0-check
+```
+
+该命令会校验：
+
+- 样例契约文件 `data/samples/m0_interface_alignment_samples.json`
+- Python 契约模块 `src/gaze_mvp/runtime_contract.py`
+- C++ 契约头文件 `cpp_core/include/gaze_core/contracts.hpp`
 
 ## Dwell 事件回放（眼控接口验证）
 
