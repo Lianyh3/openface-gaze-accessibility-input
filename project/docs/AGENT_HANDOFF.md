@@ -174,6 +174,22 @@
    - Python 参考实现与 C++ 结果逐事件对齐检查
    - 产出 `m1_alignment_check_report.json` 作为 M1 验收记录
 
+## 3.12 新增模块（2026-03-14）
+
+1. M2 C++ 核心实现（calibration/smoothing）：
+   - `cpp_core/include/gaze_core/runtime_m2.h`
+   - `cpp_core/src/runtime_m2.cpp`
+   - `cpp_core/src/m2_runtime_replay.cpp`
+2. 对齐校验脚本：
+   - `scripts/check_m2_alignment.py`
+3. 统一入口支持：
+   - `/home/lyh/workspace/run.sh m2-check`
+4. 能力：
+   - C++ 实现仿射标定拟合（含 ridge 稳定项）并输出拟合指标
+   - C++ 实现 `EMA` 与 `OneEuro` 2D 平滑，支持可配置参数
+   - Python 参考实现与 C++ 数值对齐检查（模型参数/指标/轨迹）
+   - 产出 `m2_alignment_check_report.json` 作为 M2 验收记录
+
 ## 4. 关键路径与文档
 
 1. 总规划文档：
@@ -188,7 +204,7 @@
 1. OpenFace 实时输出流已接入，待补实机长时稳定性数据（多光照、多头姿）。
 2. 已支持离线拟合 + 在线9点采集（终端引导）；后续可补图形化采集界面。
 3. 固定测试句评估脚本已接入，待执行多轮实测并产出第5章对比表。
-4. M1 核心迁移已落地，下一步进入 M2（`calibration + smoothing` C++ 迁移）。
+4. M2 核心迁移已落地，下一步进入 M3（将 C++ 核心接入实时事件流）。
 
 ## 6. 下一步实现优先级（代码）
 

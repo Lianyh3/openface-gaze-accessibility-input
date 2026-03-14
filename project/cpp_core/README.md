@@ -47,3 +47,17 @@ Alignment check command:
 ```bash
 bash /home/lyh/workspace/run.sh m1-check
 ```
+
+## M2 Core (C++)
+
+Implemented in `.h + .cpp` style:
+
+- `include/gaze_core/runtime_m2.h`
+- `src/runtime_m2.cpp`
+- `src/m2_runtime_replay.cpp`
+
+Alignment check command:
+
+```bash
+bash /home/lyh/workspace/run.sh m2-check
+```
