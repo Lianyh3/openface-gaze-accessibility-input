@@ -14,6 +14,10 @@ This folder freezes cross-language runtime contracts for the planned
 
 Header location:
 
+- `include/gaze_core/contracts.h`
+
+Backward-compatible shim for older includes:
+
 - `include/gaze_core/contracts.hpp`
 
 Python mirror implementation:

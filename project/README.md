@@ -175,7 +175,7 @@ bash run.sh m0-check
 
 - 样例契约文件 `data/samples/m0_interface_alignment_samples.json`
 - Python 契约模块 `src/gaze_mvp/runtime_contract.py`
-- C++ 契约头文件 `cpp_core/include/gaze_core/contracts.hpp`
+- C++ 契约头文件 `cpp_core/include/gaze_core/contracts.h`
 
 ## M1 C++ 核心对齐校验
 

@@ -149,7 +149,7 @@ def main() -> int:
         "m0_contract": {
             "types": ["FrameFeatures", "GazePoint", "TargetEvent"],
             "python_contract_module": "gaze_mvp.runtime_contract",
-            "cpp_header": str(ROOT / "cpp_core" / "include" / "gaze_core" / "contracts.hpp"),
+            "cpp_header": str(ROOT / "cpp_core" / "include" / "gaze_core" / "contracts.h"),
         },
         "sample_check": sample_report,
         "session_alignment_check": session_report,

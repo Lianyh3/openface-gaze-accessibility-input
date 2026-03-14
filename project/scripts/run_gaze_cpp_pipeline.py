@@ -102,6 +102,24 @@ def _to_flow_event(event: Dict[str, object]) -> Tuple[str, Dict[str, object]]:
     raise ValueError(f"Unsupported event_type from cpp replay: {event_type}")
 
 
+def _read_target_hit_counts(raw: object) -> Dict[str, int]:
+    if not isinstance(raw, dict):
+        return {}
+    out: Dict[str, int] = {}
+    for k, v in raw.items():
+        key = str(k).strip()
+        if not key:
+            continue
+        try:
+            count = int(v)
+        except (TypeError, ValueError):
+            continue
+        if count <= 0:
+            continue
+        out[key] = count
+    return dict(sorted(out.items()))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Run C++ runtime replay backend (M1 core) and dispatch into Python keyboard flow."
@@ -218,11 +236,14 @@ def main() -> int:
         )
 
     final_state = flow.keyboard.get_state().to_dict()
+    mapped_point_count = int(replay.get("mapped_point_count", 0))
+    unmapped_point_count = int(replay.get("unmapped_point_count", 0))
+    target_hit_counts = _read_target_hit_counts(replay.get("target_hit_counts", {}))
     result = {
         "point_count": int(replay.get("frame_count", 0)),
-        "mapped_point_count": None,
-        "unmapped_point_count": None,
-        "target_hit_counts": {},
+        "mapped_point_count": mapped_point_count,
+        "unmapped_point_count": unmapped_point_count,
+        "target_hit_counts": target_hit_counts,
         "emitted_count": len(emitted),
         "emitted": emitted,
         "dispatch_error_count": len(dispatch_errors),
@@ -259,6 +280,9 @@ def main() -> int:
             "binary": str(args.cpp_binary),
             "row_count": int(replay.get("row_count", 0)),
             "frame_count": int(replay.get("frame_count", 0)),
+            "mapped_point_count": mapped_point_count,
+            "unmapped_point_count": unmapped_point_count,
+            "target_hit_counts": target_hit_counts,
             "event_count": int(replay.get("event_count", len(raw_events))),
         },
         "result": result,

@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -147,12 +148,28 @@ struct EventOut {
 std::string BuildJson(const std::string& gaze_csv,
                       std::size_t row_count,
                       std::size_t frame_count,
+                      std::size_t mapped_point_count,
+                      std::size_t unmapped_point_count,
+                      const std::map<std::string, std::size_t>& target_hit_counts,
                       const std::vector<EventOut>& events) {
   std::ostringstream os;
   os << "{\n";
   os << "  \"gaze_csv\": \"" << JsonEscape(gaze_csv) << "\",\n";
   os << "  \"row_count\": " << row_count << ",\n";
   os << "  \"frame_count\": " << frame_count << ",\n";
+  os << "  \"mapped_point_count\": " << mapped_point_count << ",\n";
+  os << "  \"unmapped_point_count\": " << unmapped_point_count << ",\n";
+  os << "  \"target_hit_counts\": {\n";
+  std::size_t hit_idx = 0;
+  for (const auto& kv : target_hit_counts) {
+    os << "    \"" << JsonEscape(kv.first) << "\": " << kv.second;
+    if (hit_idx + 1 < target_hit_counts.size()) {
+      os << ",";
+    }
+    os << "\n";
+    ++hit_idx;
+  }
+  os << "  },\n";
   os << "  \"event_count\": " << events.size() << ",\n";
   os << "  \"events\": [\n";
   for (std::size_t i = 0; i < events.size(); ++i) {
@@ -211,6 +228,9 @@ int main(int argc, char** argv) {
     std::vector<EventOut> events;
     std::size_t row_count = 0;
     std::size_t frame_count = 0;
+    std::size_t mapped_point_count = 0;
+    std::size_t unmapped_point_count = 0;
+    std::map<std::string, std::size_t> target_hit_counts;
     std::string line;
     while (std::getline(in, line)) {
       if (line.empty()) {
@@ -241,6 +261,19 @@ int main(int argc, char** argv) {
       ++frame_count;
 
       const auto maybe_event = runtime.UpdateFrame(frame);
+      const auto& maybe_point = runtime.LastGazePoint();
+      if (maybe_point.has_value() && !maybe_point->target_id.empty()) {
+        ++mapped_point_count;
+        const auto hit_it = target_hit_counts.find(maybe_point->target_id);
+        if (hit_it == target_hit_counts.end()) {
+          target_hit_counts.emplace(maybe_point->target_id, 1);
+        } else {
+          ++(hit_it->second);
+        }
+      } else {
+        ++unmapped_point_count;
+      }
+
       if (!maybe_event.has_value()) {
         continue;
       }
@@ -256,7 +289,8 @@ int main(int argc, char** argv) {
       events.push_back(out);
     }
 
-    const std::string output = BuildJson(opt.gaze_csv, row_count, frame_count, events);
+    const std::string output =
+        BuildJson(opt.gaze_csv, row_count, frame_count, mapped_point_count, unmapped_point_count, target_hit_counts, events);
     std::cout << output;
     if (!opt.output_json.empty()) {
       std::ofstream out(opt.output_json);

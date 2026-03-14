@@ -9,7 +9,7 @@
 #include <utility>
 #include <vector>
 
-#include "gaze_core/contracts.hpp"
+#include "gaze_core/contracts.h"
 
 namespace gaze_core {
 

@@ -147,7 +147,7 @@
 ## 3.10 新增模块（2026-03-14）
 
 1. M0 跨语言接口契约：
-   - `cpp_core/include/gaze_core/contracts.hpp`
+   - `cpp_core/include/gaze_core/contracts.h`
    - `src/gaze_mvp/runtime_contract.py`
 2. 对齐样例与校验脚本：
    - `data/samples/m0_interface_alignment_samples.json`
