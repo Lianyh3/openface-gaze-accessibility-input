@@ -23,6 +23,7 @@
 - `scripts/check_m2_alignment.py`：校验 M2 C++核心与 Python 参考实现对齐（calibration + smoothing）
 - `scripts/replay_dwell_targets.py`：回放注视目标序列并触发 dwell 事件
 - `scripts/run_gaze_pipeline.py`：回放 gaze 坐标并执行命中测试 + dwell + 键盘事件
+- `scripts/run_gaze_cpp_pipeline.py`：用 C++ M1 回放后端驱动 Python 键盘事件流（M3 过渡版）
 - `scripts/run_openface_live_pipeline.py`：启动 OpenFace 摄像头并实时驱动命中+dwell+键盘事件流
 - `scripts/fit_9point_calibration.py`：根据 9 点标定样本拟合仿射映射参数
 - `scripts/collect_9point_calibration.py`：在线引导采集 9 点标定数据（从增长中的CSV读取）
@@ -174,7 +175,7 @@ bash run.sh m0-check
 
 - 样例契约文件 `data/samples/m0_interface_alignment_samples.json`
 - Python 契约模块 `src/gaze_mvp/runtime_contract.py`
-- C++ 契约头文件 `cpp_core/include/gaze_core/contracts.h`
+- C++ 契约头文件 `cpp_core/include/gaze_core/contracts.hpp`
 
 ## M1 C++ 核心对齐校验
 
@@ -187,7 +188,7 @@ bash run.sh m1-check
 
 该命令会：
 
-- 编译 `cpp_core` 下 M1 相关 `.cpp` 代码
+- 编译 `cpp_core` 下 M1 回放程序（核心为 header-only `.hpp`）
 - 运行 C++ 回放工具读取 gaze 样例
 - 与 Python 参考实现逐事件对比（event_type/target_id/text/index/dwell_elapsed）
 
@@ -202,9 +203,18 @@ bash run.sh m2-check
 
 该命令会：
 
-- 编译 `cpp_core` 下 M2 相关 `.cpp` 代码
+- 编译 `cpp_core` 下 M2 回放程序（核心为 header-only `.hpp`）
 - 运行 C++ 回放工具读取 calibration/gaze 样例
 - 与 Python 参考实现对比标定模型、拟合指标、EMA/OneEuro 轨迹
+
+## C++ 后端闭环（M3 过渡）
+
+运行 C++ M1 回放后端并接入 Python 键盘事件流：
+
+```bash
+cd /home/lyh/workspace
+bash run.sh gaze-cpp
+```
 
 ## Dwell 事件回放（眼控接口验证）
 

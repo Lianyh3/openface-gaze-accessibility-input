@@ -147,7 +147,7 @@
 ## 3.10 新增模块（2026-03-14）
 
 1. M0 跨语言接口契约：
-   - `cpp_core/include/gaze_core/contracts.h`
+   - `cpp_core/include/gaze_core/contracts.hpp`
    - `src/gaze_mvp/runtime_contract.py`
 2. 对齐样例与校验脚本：
    - `data/samples/m0_interface_alignment_samples.json`
@@ -162,9 +162,8 @@
 ## 3.11 新增模块（2026-03-14）
 
 1. M1 C++ 核心实现（normalizer/hit-test/dwell）：
-   - `cpp_core/include/gaze_core/runtime_m1.h`
-   - `cpp_core/src/runtime_m1.cpp`
-   - `cpp_core/src/m1_runtime_replay.cpp`
+   - `cpp_core/include/gaze_core/runtime/m1.hpp`
+   - `cpp_core/src/apps/m1_runtime_replay.cpp`
 2. 对齐校验脚本：
    - `scripts/check_m1_alignment.py`
 3. 统一入口支持：
@@ -177,9 +176,8 @@
 ## 3.12 新增模块（2026-03-14）
 
 1. M2 C++ 核心实现（calibration/smoothing）：
-   - `cpp_core/include/gaze_core/runtime_m2.h`
-   - `cpp_core/src/runtime_m2.cpp`
-   - `cpp_core/src/m2_runtime_replay.cpp`
+   - `cpp_core/include/gaze_core/runtime/m2.hpp`
+   - `cpp_core/src/apps/m2_runtime_replay.cpp`
 2. 对齐校验脚本：
    - `scripts/check_m2_alignment.py`
 3. 统一入口支持：
@@ -189,6 +187,17 @@
    - C++ 实现 `EMA` 与 `OneEuro` 2D 平滑，支持可配置参数
    - Python 参考实现与 C++ 数值对齐检查（模型参数/指标/轨迹）
    - 产出 `m2_alignment_check_report.json` 作为 M2 验收记录
+
+## 3.13 新增模块（2026-03-14）
+
+1. M3 过渡接入（C++回放后端 -> Python编排）：
+   - `scripts/run_gaze_cpp_pipeline.py`
+2. 统一入口支持：
+   - `/home/lyh/workspace/run.sh gaze-cpp`
+3. 能力：
+   - 复用 C++ M1 回放工具输出 TargetEvent 序列
+   - 由 Python `KeyboardEventFlow` 消费事件并产生日志与最终文本状态
+   - 为后续 `pybind` 同进程接入保留事件契约与验证路径
 
 ## 4. 关键路径与文档
 
@@ -204,7 +213,7 @@
 1. OpenFace 实时输出流已接入，待补实机长时稳定性数据（多光照、多头姿）。
 2. 已支持离线拟合 + 在线9点采集（终端引导）；后续可补图形化采集界面。
 3. 固定测试句评估脚本已接入，待执行多轮实测并产出第5章对比表。
-4. M2 核心迁移已落地，下一步进入 M3（将 C++ 核心接入实时事件流）。
+4. M3 过渡接入已落地，下一步可继续做同进程绑定（pybind）与实时流切换。
 
 ## 6. 下一步实现优先级（代码）
 

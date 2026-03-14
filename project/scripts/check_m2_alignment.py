@@ -121,8 +121,7 @@ def _compile_cpp(binary_path: Path) -> None:
         "-std=c++17",
         "-I",
         str(ROOT / "cpp_core" / "include"),
-        str(ROOT / "cpp_core" / "src" / "runtime_m2.cpp"),
-        str(ROOT / "cpp_core" / "src" / "m2_runtime_replay.cpp"),
+        str(ROOT / "cpp_core" / "src" / "apps" / "m2_runtime_replay.cpp"),
         "-o",
         str(binary_path),
     ]

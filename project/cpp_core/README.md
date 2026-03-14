@@ -1,4 +1,4 @@
-# cpp_core (M0 Contract Freeze)
+# cpp_core (M0-M3 C++ Runtime Core)
 
 This folder freezes cross-language runtime contracts for the planned
 `C++ core + Python orchestration` architecture.
@@ -14,7 +14,7 @@ This folder freezes cross-language runtime contracts for the planned
 
 Header location:
 
-- `include/gaze_core/contracts.h`
+- `include/gaze_core/contracts.hpp`
 
 Python mirror implementation:
 
@@ -30,17 +30,16 @@ Optional C++ smoke compile:
 
 ```bash
 cd /home/lyh/workspace/project/cpp_core
-g++ -std=c++17 -Iinclude src/contracts.cpp src/contract_smoke.cpp -o /tmp/contract_smoke
+g++ -std=c++17 -Iinclude src/checks/contract_smoke.cpp -o /tmp/contract_smoke
 /tmp/contract_smoke
 ```
 
 ## M1 Core (C++)
 
-Implemented in `.h + .cpp` style:
+Implemented in header-only `.hpp` style:
 
-- `include/gaze_core/runtime_m1.h`
-- `src/runtime_m1.cpp`
-- `src/m1_runtime_replay.cpp`
+- `include/gaze_core/runtime/m1.hpp`
+- `src/apps/m1_runtime_replay.cpp`
 
 Alignment check command:
 
@@ -50,14 +49,26 @@ bash /home/lyh/workspace/run.sh m1-check
 
 ## M2 Core (C++)
 
-Implemented in `.h + .cpp` style:
+Implemented in header-only `.hpp` style:
 
-- `include/gaze_core/runtime_m2.h`
-- `src/runtime_m2.cpp`
-- `src/m2_runtime_replay.cpp`
+- `include/gaze_core/runtime/m2.hpp`
+- `src/apps/m2_runtime_replay.cpp`
 
 Alignment check command:
 
 ```bash
 bash /home/lyh/workspace/run.sh m2-check
+```
+
+## M3 Bridge (Current)
+
+Current integration mode is a pragmatic bridge:
+
+1. C++ M1 replay binary emits `TargetEvent` list.
+2. Python orchestration consumes the events and drives keyboard flow.
+
+Run command:
+
+```bash
+bash /home/lyh/workspace/run.sh gaze-cpp
 ```

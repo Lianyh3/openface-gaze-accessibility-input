@@ -1,4 +1,4 @@
-#include "gaze_core/runtime_m2.h"
+#include "gaze_core/runtime/m2.hpp"
 
 #include <cmath>
 #include <cstdlib>
