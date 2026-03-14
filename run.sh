@@ -24,6 +24,7 @@ Commands:
   dwell      Replay dwell target timeline
   gaze       Run gaze->hit-test->dwell->keyboard pipeline
   gaze-cpp   Run C++ replay backend (M1) -> Python keyboard event flow
+  backend-compare  Compare Python/C++ gaze runtime backends
   gaze-live  Run OpenFace live webcam + gaze runtime pipeline
   calib      Fit 9-point affine calibration from sample CSV
   calib-collect  Collect online 9-point calibration points from growing CSV
@@ -40,6 +41,7 @@ Examples:
   bash /home/lyh/workspace/run.sh rerank "我今天想去" "图书馆,食堂,实验室,操场"
   bash /home/lyh/workspace/run.sh gaze --report-json /tmp/gaze_report.json
   bash /home/lyh/workspace/run.sh gaze-cpp --report-json /tmp/gaze_cpp_report.json
+  bash /home/lyh/workspace/run.sh backend-compare --report-json /tmp/runtime_backend_compare.json
   bash /home/lyh/workspace/run.sh gaze --smoothing one_euro --one-euro-beta 0.01
   bash /home/lyh/workspace/run.sh gaze-live --max-seconds 20 --print-events
   bash /home/lyh/workspace/run.sh calib --output-json /tmp/calib.json
@@ -147,6 +149,14 @@ case "$cmd" in
     shift
     python3 "$PROJECT/scripts/run_gaze_cpp_pipeline.py" \
       --gaze-csv "$PROJECT/data/samples/gaze_points_demo.csv" \
+      "$@"
+    ;;
+  backend-compare)
+    shift
+    python3 "$PROJECT/scripts/compare_runtime_backends.py" \
+      --gaze-csv "$PROJECT/data/samples/gaze_points_demo.csv" \
+      --report-json "$PROJECT/data/reports/runtime_backend_compare_latest.json" \
+      --force-heuristic-reranker \
       "$@"
     ;;
   gaze-live)

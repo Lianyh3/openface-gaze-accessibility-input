@@ -4,10 +4,8 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
-import subprocess
 import sys
 from pathlib import Path
-from typing import Dict, Tuple
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
@@ -15,6 +13,12 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from gaze_mvp.candidate_pool import build_default_provider
+from gaze_mvp.cpp_runtime_bridge import (
+    compile_m1_cpp,
+    dispatch_cpp_replay_events,
+    read_target_hit_counts,
+    run_m1_cpp_replay,
+)
 from gaze_mvp.keyboard_event_flow import KeyboardEventFlow, SessionLogger
 from gaze_mvp.keyboard_mvp import KeyboardMVP
 from gaze_mvp.llm_factory import build_reranker_from_config
@@ -24,100 +28,6 @@ def _default_session_log_path() -> Path:
     stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%d_%H%M%S_%f")
     return ROOT / "data" / "logs" / f"gaze_cpp_pipeline_session_{stamp}.jsonl"
 
-
-def _compile_cpp(binary_path: Path) -> None:
-    cmd = [
-        "g++",
-        "-std=c++17",
-        "-I",
-        str(ROOT / "cpp_core" / "include"),
-        str(ROOT / "cpp_core" / "src" / "apps" / "m1_runtime_replay.cpp"),
-        "-o",
-        str(binary_path),
-    ]
-    subprocess.run(cmd, check=True)
-
-
-def _run_cpp_replay(
-    binary_path: Path,
-    gaze_csv: Path,
-    timestamp_col: str,
-    x_col: str,
-    y_col: str,
-    dwell_ms: int,
-    candidate_slots: int,
-    x_min: float,
-    x_max: float,
-    y_min: float,
-    y_max: float,
-    clamp: bool,
-) -> Dict[str, object]:
-    cmd = [
-        str(binary_path),
-        "--gaze-csv",
-        str(gaze_csv),
-        "--timestamp-col",
-        timestamp_col,
-        "--x-col",
-        x_col,
-        "--y-col",
-        y_col,
-        "--dwell-ms",
-        str(dwell_ms),
-        "--candidate-slots",
-        str(candidate_slots),
-        "--x-min",
-        str(x_min),
-        "--x-max",
-        str(x_max),
-        "--y-min",
-        str(y_min),
-        "--y-max",
-        str(y_max),
-    ]
-    if not clamp:
-        cmd.append("--no-clamp")
-
-    proc = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    payload = json.loads(proc.stdout)
-    if not isinstance(payload, dict):
-        raise ValueError("cpp replay output invalid: root is not object")
-    return payload
-
-
-def _to_flow_event(event: Dict[str, object]) -> Tuple[str, Dict[str, object]]:
-    event_type = str(event.get("event_type", "")).strip()
-    if event_type == "key_input":
-        return "key_input", {"text": str(event.get("text", ""))}
-    if event_type == "candidate_pick":
-        return "candidate_pick", {"index": int(event.get("candidate_index", 0))}
-    if event_type == "backspace":
-        return "backspace", {}
-    if event_type == "commit_direct":
-        return "commit_direct", {}
-    if event_type == "clear":
-        return "clear", {}
-    if event_type == "candidate_refresh":
-        return "candidate_refresh", {}
-    raise ValueError(f"Unsupported event_type from cpp replay: {event_type}")
-
-
-def _read_target_hit_counts(raw: object) -> Dict[str, int]:
-    if not isinstance(raw, dict):
-        return {}
-    out: Dict[str, int] = {}
-    for k, v in raw.items():
-        key = str(k).strip()
-        if not key:
-            continue
-        try:
-            count = int(v)
-        except (TypeError, ValueError):
-            continue
-        if count <= 0:
-            continue
-        out[key] = count
-    return dict(sorted(out.items()))
 
 
 def main() -> int:
@@ -154,6 +64,11 @@ def main() -> int:
         help="Temporary cpp replay binary path.",
     )
     parser.add_argument(
+        "--skip-cpp-build",
+        action="store_true",
+        help="Reuse existing C++ binary and skip g++ rebuild.",
+    )
+    parser.add_argument(
         "--session-log",
         type=Path,
         default=None,
@@ -164,6 +79,8 @@ def main() -> int:
 
     if not args.gaze_csv.exists():
         raise SystemExit(f"Gaze CSV not found: {args.gaze_csv}")
+    if args.skip_cpp_build and not args.cpp_binary.exists():
+        raise SystemExit(f"C++ binary not found: {args.cpp_binary}")
 
     config, reranker = build_reranker_from_config(args.config)
     dwell_ms = args.dwell_ms if args.dwell_ms is not None else config.dwell_ms
@@ -177,8 +94,9 @@ def main() -> int:
         candidate_limit=args.candidate_limit,
     )
 
-    _compile_cpp(args.cpp_binary)
-    replay = _run_cpp_replay(
+    if not args.skip_cpp_build:
+        compile_m1_cpp(args.cpp_binary)
+    replay = run_m1_cpp_replay(
         binary_path=args.cpp_binary,
         gaze_csv=args.gaze_csv,
         timestamp_col=args.timestamp_col,
@@ -194,51 +112,12 @@ def main() -> int:
     )
 
     raw_events = replay.get("events", [])
-    if not isinstance(raw_events, list):
-        raise SystemExit("Invalid cpp replay output: events is not list")
-
-    emitted = []
-    dispatch_errors = []
-    for item in raw_events:
-        if not isinstance(item, dict):
-            continue
-
-        timestamp_ms = int(item.get("timestamp_ms", 0))
-        target_id = str(item.get("target_id", ""))
-        try:
-            kind, payload = _to_flow_event(item)
-            metrics = {
-                "trigger_source": "cpp_dwell",
-                "target_id": target_id,
-                "dwell_started_ms": int(item.get("dwell_started_ms", 0)),
-                "dwell_elapsed_ms": int(item.get("dwell_elapsed_ms", 0)),
-                "emitted_at_ms": timestamp_ms,
-            }
-            state, event = flow.dispatch(kind=kind, payload=payload, metrics=metrics)
-        except Exception as exc:
-            dispatch_errors.append(
-                {
-                    "timestamp_ms": timestamp_ms,
-                    "target_id": target_id,
-                    "raw_event": item,
-                    "error": str(exc),
-                }
-            )
-            continue
-
-        emitted.append(
-            {
-                "timestamp_ms": timestamp_ms,
-                "target_id": target_id,
-                "event": event.to_dict(),
-                "state": state.to_dict(),
-            }
-        )
+    emitted, dispatch_errors = dispatch_cpp_replay_events(flow=flow, raw_events=raw_events)
 
     final_state = flow.keyboard.get_state().to_dict()
     mapped_point_count = int(replay.get("mapped_point_count", 0))
     unmapped_point_count = int(replay.get("unmapped_point_count", 0))
-    target_hit_counts = _read_target_hit_counts(replay.get("target_hit_counts", {}))
+    target_hit_counts = read_target_hit_counts(replay.get("target_hit_counts", {}))
     result = {
         "point_count": int(replay.get("frame_count", 0)),
         "mapped_point_count": mapped_point_count,

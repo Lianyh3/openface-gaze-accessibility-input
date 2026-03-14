@@ -22,8 +22,9 @@
 - `scripts/check_m1_alignment.py`：校验 M1 C++核心与 Python 参考实现对齐
 - `scripts/check_m2_alignment.py`：校验 M2 C++核心与 Python 参考实现对齐（calibration + smoothing）
 - `scripts/replay_dwell_targets.py`：回放注视目标序列并触发 dwell 事件
-- `scripts/run_gaze_pipeline.py`：回放 gaze 坐标并执行命中测试 + dwell + 键盘事件
+- `scripts/run_gaze_pipeline.py`：回放 gaze 坐标并执行命中测试 + dwell + 键盘事件（支持 `--runtime-backend {python,cpp}`）
 - `scripts/run_gaze_cpp_pipeline.py`：用 C++ M1 回放后端驱动 Python 键盘事件流（M3 过渡版）
+- `scripts/compare_runtime_backends.py`：比较 Python/C++ gaze 后端 wall time 与事件一致性
 - `scripts/run_openface_live_pipeline.py`：启动 OpenFace 摄像头并实时驱动命中+dwell+键盘事件流
 - `scripts/fit_9point_calibration.py`：根据 9 点标定样本拟合仿射映射参数
 - `scripts/collect_9point_calibration.py`：在线引导采集 9 点标定数据（从增长中的CSV读取）
@@ -214,6 +215,22 @@ bash run.sh m2-check
 ```bash
 cd /home/lyh/workspace
 bash run.sh gaze-cpp
+```
+
+离线 gaze 管线也支持后端切换：
+
+```bash
+cd /home/lyh/workspace
+bash run.sh gaze --runtime-backend cpp
+```
+
+## Python/C++ 后端对比
+
+运行同一 gaze 样例下的 Python/C++ 后端对比：
+
+```bash
+cd /home/lyh/workspace
+bash run.sh backend-compare
 ```
 
 ## Dwell 事件回放（眼控接口验证）

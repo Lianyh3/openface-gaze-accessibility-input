@@ -199,6 +199,18 @@
    - 由 Python `KeyboardEventFlow` 消费事件并产生日志与最终文本状态
    - 为后续 `pybind` 同进程接入保留事件契约与验证路径
 
+## 3.14 新增模块（2026-03-14）
+
+1. Python/C++ 后端切换与对比：
+   - `scripts/run_gaze_pipeline.py`（新增 `--runtime-backend {python,cpp}`）
+   - `scripts/compare_runtime_backends.py`
+2. 统一入口支持：
+   - `/home/lyh/workspace/run.sh backend-compare`
+3. 能力：
+   - 离线 gaze 管线可切换为 `cpp` 后端执行 `hit-test + dwell`
+   - C++ 后端复用 Python 预处理（calibration/smoothing）后再进入 M1 回放核心
+   - 产出 Python vs C++ wall time / 事件一致性对比报告，作为 M4 实验素材
+
 ## 4. 关键路径与文档
 
 1. 总规划文档：
