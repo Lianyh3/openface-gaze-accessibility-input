@@ -19,6 +19,7 @@
 - `scripts/summarize_keyboard_session.py`：汇总键盘会话日志（jsonl）
 - `scripts/evaluate_keyboard_task.py`：评估固定测试句任务（CER/CPM/WPM + 交互指标）
 - `scripts/check_m0_contract.py`：校验 M0 跨语言接口契约（FrameFeatures/GazePoint/TargetEvent）
+- `scripts/check_m1_alignment.py`：校验 M1 C++核心与 Python 参考实现对齐
 - `scripts/replay_dwell_targets.py`：回放注视目标序列并触发 dwell 事件
 - `scripts/run_gaze_pipeline.py`：回放 gaze 坐标并执行命中测试 + dwell + 键盘事件
 - `scripts/run_openface_live_pipeline.py`：启动 OpenFace 摄像头并实时驱动命中+dwell+键盘事件流
@@ -172,7 +173,22 @@ bash run.sh m0-check
 
 - 样例契约文件 `data/samples/m0_interface_alignment_samples.json`
 - Python 契约模块 `src/gaze_mvp/runtime_contract.py`
-- C++ 契约头文件 `cpp_core/include/gaze_core/contracts.hpp`
+- C++ 契约头文件 `cpp_core/include/gaze_core/contracts.h`
+
+## M1 C++ 核心对齐校验
+
+运行 M1 校验（normalizer + hit-test + dwell）：
+
+```bash
+cd /home/lyh/workspace
+bash run.sh m1-check
+```
+
+该命令会：
+
+- 编译 `cpp_core` 下 M1 相关 `.cpp` 代码
+- 运行 C++ 回放工具读取 gaze 样例
+- 与 Python 参考实现逐事件对比（event_type/target_id/text/index/dwell_elapsed）
 
 ## Dwell 事件回放（眼控接口验证）
 

@@ -1,4 +1,4 @@
-#include "gaze_core/contracts.hpp"
+#include "gaze_core/contracts.h"
 
 #include <iostream>
 

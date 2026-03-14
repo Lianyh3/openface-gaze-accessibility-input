@@ -14,7 +14,7 @@ This folder freezes cross-language runtime contracts for the planned
 
 Header location:
 
-- `include/gaze_core/contracts.hpp`
+- `include/gaze_core/contracts.h`
 
 Python mirror implementation:
 
@@ -30,6 +30,20 @@ Optional C++ smoke compile:
 
 ```bash
 cd /home/lyh/workspace/project/cpp_core
-g++ -std=c++17 -Iinclude src/contract_smoke.cpp -o /tmp/contract_smoke
+g++ -std=c++17 -Iinclude src/contracts.cpp src/contract_smoke.cpp -o /tmp/contract_smoke
 /tmp/contract_smoke
+```
+
+## M1 Core (C++)
+
+Implemented in `.h + .cpp` style:
+
+- `include/gaze_core/runtime_m1.h`
+- `src/runtime_m1.cpp`
+- `src/m1_runtime_replay.cpp`
+
+Alignment check command:
+
+```bash
+bash /home/lyh/workspace/run.sh m1-check
 ```

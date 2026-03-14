@@ -147,7 +147,7 @@
 ## 3.10 新增模块（2026-03-14）
 
 1. M0 跨语言接口契约：
-   - `cpp_core/include/gaze_core/contracts.hpp`
+   - `cpp_core/include/gaze_core/contracts.h`
    - `src/gaze_mvp/runtime_contract.py`
 2. 对齐样例与校验脚本：
    - `data/samples/m0_interface_alignment_samples.json`
@@ -158,6 +158,21 @@
    - 冻结 `FrameFeatures / GazePoint / TargetEvent` 字段定义
    - 支持用真实 session log 事件映射校验 `TargetEvent` 契约
    - 产出 `m0_contract_check_report.json` 作为接口冻结证据
+
+## 3.11 新增模块（2026-03-14）
+
+1. M1 C++ 核心实现（normalizer/hit-test/dwell）：
+   - `cpp_core/include/gaze_core/runtime_m1.h`
+   - `cpp_core/src/runtime_m1.cpp`
+   - `cpp_core/src/m1_runtime_replay.cpp`
+2. 对齐校验脚本：
+   - `scripts/check_m1_alignment.py`
+3. 统一入口支持：
+   - `/home/lyh/workspace/run.sh m1-check`
+4. 能力：
+   - C++ 回放工具可直接读取 gaze csv 并输出 TargetEvent 序列
+   - Python 参考实现与 C++ 结果逐事件对齐检查
+   - 产出 `m1_alignment_check_report.json` 作为 M1 验收记录
 
 ## 4. 关键路径与文档
 
@@ -173,7 +188,7 @@
 1. OpenFace 实时输出流已接入，待补实机长时稳定性数据（多光照、多头姿）。
 2. 已支持离线拟合 + 在线9点采集（终端引导）；后续可补图形化采集界面。
 3. 固定测试句评估脚本已接入，待执行多轮实测并产出第5章对比表。
-4. M0 接口冻结已完成，下一步进入 M1（`normalizer/hit_test/dwell` C++ 迁移）。
+4. M1 核心迁移已落地，下一步进入 M2（`calibration + smoothing` C++ 迁移）。
 
 ## 6. 下一步实现优先级（代码）
 
