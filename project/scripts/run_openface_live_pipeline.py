@@ -20,6 +20,7 @@ if str(SRC) not in sys.path:
 
 from gaze_mvp.candidate_pool import build_default_provider
 from gaze_mvp.calibration import load_affine_calibration
+from gaze_mvp.cpp_runtime_bridge import IncrementalCppReplayRuntime
 from gaze_mvp.dwell_detector import DwellDetector
 from gaze_mvp.gaze_hit_test import LayoutPreset, build_default_hit_tester
 from gaze_mvp.gaze_runtime_pipeline import GazeKeyboardRuntime, GazePointObservation, LinearNormalizer
@@ -217,6 +218,7 @@ def main() -> int:
         default=20.0,
         help="Fallback timestamp step used when timestamp column is empty.",
     )
+    parser.add_argument("--runtime-backend", choices=("python", "cpp"), default="python")
     parser.add_argument("--dwell-ms", type=int, default=None)
     parser.add_argument("--candidate-limit", type=int, default=8)
     parser.add_argument("--candidate-slots", type=int, default=8)
@@ -231,6 +233,17 @@ def main() -> int:
     parser.add_argument("--y-min", type=float, default=-0.6)
     parser.add_argument("--y-max", type=float, default=0.6)
     parser.add_argument("--no-clamp", action="store_true")
+    parser.add_argument(
+        "--cpp-binary",
+        type=Path,
+        default=Path("/tmp/gaze_m1_replay_live"),
+        help="Temporary cpp replay binary path used when --runtime-backend cpp.",
+    )
+    parser.add_argument(
+        "--skip-cpp-build",
+        action="store_true",
+        help="Reuse existing C++ binary and skip g++ rebuild when using cpp backend.",
+    )
     parser.add_argument("--print-events", action="store_true", help="Print every emitted keyboard event.")
     parser.add_argument(
         "--export-gaze-csv",
@@ -254,6 +267,8 @@ def main() -> int:
         raise SystemExit("--poll-interval-ms must be positive.")
     if args.fallback_fps <= 0:
         raise SystemExit("--fallback-fps must be positive.")
+    if args.runtime_backend == "cpp" and args.skip_cpp_build and not args.cpp_binary.exists():
+        raise SystemExit(f"C++ binary not found: {args.cpp_binary}")
 
     config, reranker = build_reranker_from_config(args.config)
     dwell_ms = args.dwell_ms if args.dwell_ms is not None else config.dwell_ms
@@ -266,6 +281,9 @@ def main() -> int:
         session_logger=SessionLogger(session_log),
         candidate_limit=args.candidate_limit,
     )
+
+    out_dir = args.openface_out_dir if args.openface_out_dir is not None else _default_out_dir()
+    out_dir.mkdir(parents=True, exist_ok=True)
 
     hit_tester = build_default_hit_tester(LayoutPreset(candidate_slots=args.candidate_slots))
     detector = DwellDetector(dwell_ms=dwell_ms)
@@ -312,16 +330,26 @@ def main() -> int:
             "d_cutoff": args.one_euro_d_cutoff,
         }
 
-    runtime = GazeKeyboardRuntime(
-        hit_tester=hit_tester,
-        dwell_detector=detector,
-        event_flow=flow,
-        normalizer=normalizer,
-        smoother=smoother,
-    )
+    if args.runtime_backend == "python":
+        runtime = GazeKeyboardRuntime(
+            hit_tester=hit_tester,
+            dwell_detector=detector,
+            event_flow=flow,
+            normalizer=normalizer,
+            smoother=smoother,
+        )
+    else:
+        runtime = IncrementalCppReplayRuntime(
+            flow=flow,
+            normalizer=normalizer,
+            smoother=smoother,
+            dwell_ms=dwell_ms,
+            candidate_slots=args.candidate_slots,
+            cpp_binary=args.cpp_binary,
+            replay_csv_path=out_dir / "cpp_live_runtime_points.csv",
+            skip_cpp_build=args.skip_cpp_build,
+        )
 
-    out_dir = args.openface_out_dir if args.openface_out_dir is not None else _default_out_dir()
-    out_dir.mkdir(parents=True, exist_ok=True)
     openface_log = out_dir / "openface_stdout.log"
     openface_cmd = build_openface_command(
         openface_bin=args.openface_bin,
@@ -474,7 +502,9 @@ def main() -> int:
     if return_code is None:
         return_code = _stop_process(proc)
 
+    cpp_replay_detail = runtime.replay_summary() if args.runtime_backend == "cpp" else None
     output = {
+        "runtime_backend": args.runtime_backend,
         "config_path": str(args.config),
         "llm": {
             "provider": config.llm.provider,
@@ -510,6 +540,7 @@ def main() -> int:
         "smoothing": smoothing_detail,
         "session_log": str(session_log),
         "layout": hit_tester.layout_summary(),
+        "cpp_replay": cpp_replay_detail,
         "result": agg_result,
     }
 

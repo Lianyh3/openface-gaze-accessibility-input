@@ -1,6 +1,6 @@
 # 毕设项目交接文档（Agent Handoff）
 
-更新时间：2026-03-14
+更新时间：2026-03-30
 
 ## 1. 课题与目标
 
@@ -211,6 +211,16 @@
    - C++ 后端复用 Python 预处理（calibration/smoothing）后再进入 M1 回放核心
    - 产出 Python vs C++ wall time / 事件一致性对比报告，作为 M4 实验素材
 
+## 3.15 新增模块（2026-03-30）
+
+1. OpenFace 实时链路后端切换：
+   - `scripts/run_openface_live_pipeline.py`（新增 `--runtime-backend {python,cpp}`）
+   - `src/gaze_mvp/cpp_runtime_bridge.py`（新增增量 C++ 回放运行时）
+2. 能力：
+   - 实时 OpenFace 链路可切换 `python/cpp` 后端
+   - `cpp` 模式下复用 Python 预处理（calibration/smoothing），再进入 C++ M1 回放核心
+   - 报告中额外输出 `cpp_replay` 摘要，便于调试与验收
+
 ## 4. 关键路径与文档
 
 1. 总规划文档：
@@ -225,7 +235,7 @@
 1. OpenFace 实时输出流已接入，待补实机长时稳定性数据（多光照、多头姿）。
 2. 已支持离线拟合 + 在线9点采集（终端引导）；后续可补图形化采集界面。
 3. 固定测试句评估脚本已接入，待执行多轮实测并产出第5章对比表。
-4. M3 过渡接入已落地，下一步可继续做同进程绑定（pybind）与实时流切换。
+4. M3 实时流已支持 `python/cpp` 切换，下一步可继续做同进程绑定（pybind）与长时稳定性验证。
 
 ## 6. 下一步实现优先级（代码）
 
@@ -275,4 +285,6 @@ OpenFace 实时输入闭环（新增）：
 ```bash
 cd /home/lyh/workspace
 bash run.sh gaze-live --max-seconds 20 --print-events
+# 或切到 C++ 过渡后端
+bash run.sh gaze-live --runtime-backend cpp --max-seconds 20
 ```

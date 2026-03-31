@@ -25,7 +25,7 @@
 - `scripts/run_gaze_pipeline.py`：回放 gaze 坐标并执行命中测试 + dwell + 键盘事件（支持 `--runtime-backend {python,cpp}`）
 - `scripts/run_gaze_cpp_pipeline.py`：用 C++ M1 回放后端驱动 Python 键盘事件流（M3 过渡版）
 - `scripts/compare_runtime_backends.py`：比较 Python/C++ gaze 后端 wall time 与事件一致性
-- `scripts/run_openface_live_pipeline.py`：启动 OpenFace 摄像头并实时驱动命中+dwell+键盘事件流
+- `scripts/run_openface_live_pipeline.py`：启动 OpenFace 摄像头并实时驱动命中+dwell+键盘事件流（支持 `--runtime-backend {python,cpp}`）
 - `scripts/fit_9point_calibration.py`：根据 9 点标定样本拟合仿射映射参数
 - `scripts/collect_9point_calibration.py`：在线引导采集 9 点标定数据（从增长中的CSV读取）
 - `docs/AGENT_HANDOFF.md`：交接上下文
@@ -293,6 +293,9 @@ python3 scripts/run_gaze_pipeline.py \
 ```bash
 cd /home/lyh/workspace
 bash run.sh gaze-live --max-seconds 20 --print-events
+
+# 使用 C++ M1 回放后端做实时过渡接入
+bash run.sh gaze-live --runtime-backend cpp --max-seconds 20
 ```
 
 等价命令：
@@ -304,10 +307,15 @@ python3 scripts/run_openface_live_pipeline.py \
   --max-seconds 20 \
   --print-events \
   --report-json /home/lyh/workspace/project/data/reports/gaze_live_latest_report.json
+
+# 切换实时后端
+#   --runtime-backend python   默认，纯 Python runtime
+#   --runtime-backend cpp      Python 预处理 + C++ M1 回放核心
 ```
 
 常用参数：
 
+- `--runtime-backend`：实时链路后端切换，支持 `python` 与 `cpp`
 - `--x-col/--y-col`：默认读取 OpenFace 的 `gaze_angle_x/gaze_angle_y`
 - `--x-min/--x-max/--y-min/--y-max`：线性归一化区间（未加载标定 JSON 时生效）
 - `--calibration-json`：加载 9 点标定参数，优先替代线性区间归一化

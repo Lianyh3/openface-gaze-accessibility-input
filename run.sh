@@ -44,6 +44,7 @@ Examples:
   bash /home/lyh/workspace/run.sh backend-compare --report-json /tmp/runtime_backend_compare.json
   bash /home/lyh/workspace/run.sh gaze --smoothing one_euro --one-euro-beta 0.01
   bash /home/lyh/workspace/run.sh gaze-live --max-seconds 20 --print-events
+  bash /home/lyh/workspace/run.sh gaze-live --runtime-backend cpp --max-seconds 20
   bash /home/lyh/workspace/run.sh calib --output-json /tmp/calib.json
   bash /home/lyh/workspace/run.sh calib-collect --source-csv /tmp/live_gaze.csv --auto-start
 EOF
