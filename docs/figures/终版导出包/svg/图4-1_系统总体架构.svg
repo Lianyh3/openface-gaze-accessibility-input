@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1169" height="827" viewBox="0 0 1169 827">
+<rect x="0" y="0" width="100%" height="100%" fill="#ffffff"/>
+<rect x="60.00" y="60.00" width="1048.00" height="692.00" rx="6.00" ry="6.00" fill="#FAFAFA" stroke="#C8C8C8" stroke-width="1.20"/>
+<rect x="100.00" y="160.00" width="190.00" height="88.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="330.00" y="160.00" width="220.00" height="88.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="590.00" y="160.00" width="220.00" height="88.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="850.00" y="160.00" width="190.00" height="88.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="590.00" y="440.00" width="220.00" height="88.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="850.00" y="440.00" width="190.00" height="88.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<polyline points="290.00,204.00 330.00,204.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="330.00,204.00 321.50,207.82 321.50,200.18" fill="#303030"/>
+<polyline points="550.00,204.00 590.00,204.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="590.00,204.00 581.50,207.82 581.50,200.18" fill="#303030"/>
+<polyline points="810.00,204.00 850.00,204.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="850.00,204.00 841.50,207.82 841.50,200.18" fill="#303030"/>
+<polyline points="700.00,248.00 700.00,300.00 700.00,440.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="700.00,440.00 696.17,431.50 703.83,431.50" fill="#303030"/>
+<polyline points="945.00,248.00 945.00,300.00 945.00,440.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="945.00,440.00 941.17,431.50 948.83,431.50" fill="#303030"/>
+<polyline points="810.00,484.00 850.00,484.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="850.00,484.00 841.50,487.82 841.50,480.18" fill="#303030"/>
+<polyline points="590.00,492.80 480.00,560.00 480.00,300.00 440.00,248.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-dasharray="8 6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="440.00,248.00 448.21,252.41 442.15,257.07" fill="#303030"/>
+<text x="98.00" y="110.62" text-anchor="start" font-family="Microsoft YaHei" font-size="15.0" font-weight="700" fill="#111111">主交互流程</text>
+<text x="98.00" y="410.62" text-anchor="start" font-family="Microsoft YaHei" font-size="15.0" font-weight="700" fill="#111111">运行保障与评估闭环</text>
+<text x="195.00" y="200.75" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">OpenFace</text>
+<text x="195.00" y="217.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">实时采集</text>
+<text x="440.00" y="200.75" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">视线优化</text>
+<text x="440.00" y="217.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">归一化 / 标定 / 平滑</text>
+<text x="700.00" y="200.75" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">目标命中与</text>
+<text x="700.00" y="217.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">停留触发</text>
+<text x="945.00" y="208.88" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">文本状态更新</text>
+<text x="700.00" y="480.75" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">异常检测与</text>
+<text x="700.00" y="497.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">恢复机制</text>
+<text x="945.00" y="480.75" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">会话日志与</text>
+<text x="945.00" y="497.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">指标输出</text>
+<text x="1062.00" y="700.12" text-anchor="end" font-family="Microsoft YaHei" font-size="11.0" font-weight="400" fill="#444444">线型说明：实线=主流程；虚线=反馈/辅助路径。</text>
+<text x="584.00" y="730.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#333333">图4-1  无障碍眼控输入系统总体架构（主流程 + 保障闭环）</text>
+</svg>

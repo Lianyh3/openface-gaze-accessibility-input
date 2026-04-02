@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1169" height="827" viewBox="0 0 1169 827">
+<rect x="0" y="0" width="100%" height="100%" fill="#ffffff"/>
+<rect x="60.00" y="60.00" width="1048.00" height="692.00" rx="6.00" ry="6.00" fill="#FAFAFA" stroke="#C8C8C8" stroke-width="1.20"/>
+<rect x="98.00" y="176.00" width="460.00" height="404.00" rx="4.80" ry="4.80" fill="#F5F5F5" stroke="#404040" stroke-width="1.60"/>
+<rect x="160.00" y="220.00" width="2.00" height="300.00" rx="0.00" ry="0.00" fill="#2C2C2C" stroke="#2C2C2C" stroke-width="1.00"/>
+<rect x="160.00" y="520.00" width="340.00" height="2.00" rx="0.00" ry="0.00" fill="#2C2C2C" stroke="#2C2C2C" stroke-width="1.00"/>
+<rect x="230.00" y="246.00" width="98.00" height="274.00" rx="0.00" ry="0.00" fill="#404040" stroke="#202020" stroke-width="1.20"/>
+<rect x="370.00" y="266.00" width="98.00" height="254.00" rx="0.00" ry="0.00" fill="#707070" stroke="#303030" stroke-width="1.20"/>
+<rect x="618.00" y="176.00" width="460.00" height="404.00" rx="4.80" ry="4.80" fill="#F5F5F5" stroke="#404040" stroke-width="1.60"/>
+<rect x="680.00" y="220.00" width="2.00" height="300.00" rx="0.00" ry="0.00" fill="#2C2C2C" stroke="#2C2C2C" stroke-width="1.00"/>
+<rect x="680.00" y="520.00" width="340.00" height="2.00" rx="0.00" ry="0.00" fill="#2C2C2C" stroke="#2C2C2C" stroke-width="1.00"/>
+<rect x="748.00" y="332.00" width="98.00" height="188.00" rx="0.00" ry="0.00" fill="#9A9A9A" stroke="#404040" stroke-width="1.20"/>
+<rect x="888.00" y="360.00" width="98.00" height="160.00" rx="0.00" ry="0.00" fill="#C2C2C2" stroke="#505050" stroke-width="1.20"/>
+<text x="98.00" y="110.62" text-anchor="start" font-family="Microsoft YaHei" font-size="15.0" font-weight="700" fill="#111111">基础链路核心指标（2026-04-01 批量采集）</text>
+<text x="172.00" y="162.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">比例指标</text>
+<text x="143.00" y="222.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">1.0</text>
+<text x="152.00" y="536.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">0</text>
+<text x="279.00" y="544.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">success_rate</text>
+<text x="279.00" y="559.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">1.000</text>
+<text x="419.00" y="544.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">mean_confidence</text>
+<text x="419.00" y="559.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">0.9316</text>
+<text x="692.00" y="162.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">时序指标</text>
+<text x="797.00" y="544.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">fps</text>
+<text x="797.00" y="559.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">28.83</text>
+<text x="937.00" y="544.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">duration(s)</text>
+<text x="937.00" y="559.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">24.46</text>
+<text x="1062.00" y="700.12" text-anchor="end" font-family="Microsoft YaHei" font-size="11.0" font-weight="400" fill="#444444">说明：图中柱高用于相对比较，具体数值以正文和表格为准。</text>
+<text x="584.00" y="730.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#333333">图5-2  基础链路关键指标对比（成功率、置信度、帧率、时长）</text>
+</svg>
