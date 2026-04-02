@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1169" height="827" viewBox="0 0 1169 827">
+<rect x="0" y="0" width="100%" height="100%" fill="#ffffff"/>
+<rect x="60.00" y="60.00" width="1048.00" height="692.00" rx="6.00" ry="6.00" fill="#FAFAFA" stroke="#C8C8C8" stroke-width="1.20"/>
+<rect x="94.00" y="140.00" width="284.00" height="380.00" rx="4.80" ry="4.80" fill="#F5F5F5" stroke="#404040" stroke-width="1.60"/>
+<ellipse cx="156.00" cy="231.00" rx="11.00" ry="11.00" fill="#555555" stroke="#222222" stroke-width="1.20"/>
+<ellipse cx="156.00" cy="331.00" rx="11.00" ry="11.00" fill="#555555" stroke="#222222" stroke-width="1.20"/>
+<ellipse cx="156.00" cy="431.00" rx="11.00" ry="11.00" fill="#555555" stroke="#222222" stroke-width="1.20"/>
+<ellipse cx="246.00" cy="231.00" rx="11.00" ry="11.00" fill="#555555" stroke="#222222" stroke-width="1.20"/>
+<ellipse cx="246.00" cy="331.00" rx="11.00" ry="11.00" fill="#555555" stroke="#222222" stroke-width="1.20"/>
+<ellipse cx="246.00" cy="431.00" rx="11.00" ry="11.00" fill="#555555" stroke="#222222" stroke-width="1.20"/>
+<ellipse cx="336.00" cy="231.00" rx="11.00" ry="11.00" fill="#555555" stroke="#222222" stroke-width="1.20"/>
+<ellipse cx="336.00" cy="331.00" rx="11.00" ry="11.00" fill="#555555" stroke="#222222" stroke-width="1.20"/>
+<ellipse cx="336.00" cy="431.00" rx="11.00" ry="11.00" fill="#555555" stroke="#222222" stroke-width="1.20"/>
+<rect x="446.00" y="228.00" width="276.00" height="192.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="810.00" y="140.00" width="284.00" height="380.00" rx="4.80" ry="4.80" fill="#F5F5F5" stroke="#404040" stroke-width="1.60"/>
+<ellipse cx="872.00" cy="231.00" rx="11.00" ry="11.00" fill="#9A9A9A" stroke="#444444" stroke-width="1.20"/>
+<ellipse cx="872.00" cy="331.00" rx="11.00" ry="11.00" fill="#9A9A9A" stroke="#444444" stroke-width="1.20"/>
+<ellipse cx="872.00" cy="431.00" rx="11.00" ry="11.00" fill="#9A9A9A" stroke="#444444" stroke-width="1.20"/>
+<ellipse cx="962.00" cy="231.00" rx="11.00" ry="11.00" fill="#9A9A9A" stroke="#444444" stroke-width="1.20"/>
+<ellipse cx="962.00" cy="331.00" rx="11.00" ry="11.00" fill="#9A9A9A" stroke="#444444" stroke-width="1.20"/>
+<ellipse cx="962.00" cy="431.00" rx="11.00" ry="11.00" fill="#9A9A9A" stroke="#444444" stroke-width="1.20"/>
+<ellipse cx="1052.00" cy="231.00" rx="11.00" ry="11.00" fill="#9A9A9A" stroke="#444444" stroke-width="1.20"/>
+<ellipse cx="1052.00" cy="331.00" rx="11.00" ry="11.00" fill="#9A9A9A" stroke="#444444" stroke-width="1.20"/>
+<ellipse cx="1052.00" cy="431.00" rx="11.00" ry="11.00" fill="#9A9A9A" stroke="#444444" stroke-width="1.20"/>
+<polyline points="378.00,406.00 446.00,362.40" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="446.00,362.40 440.91,370.21 436.78,363.77" fill="#303030"/>
+<polyline points="722.00,362.40 810.00,406.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="810.00,406.00 800.69,405.65 804.08,398.80" fill="#303030"/>
+<polyline points="952.00,520.00 952.00,560.00 236.00,560.00 236.00,520.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-dasharray="8 6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="236.00,520.00 239.82,528.50 232.18,528.50" fill="#303030"/>
+<text x="98.00" y="110.62" text-anchor="start" font-family="Microsoft YaHei" font-size="15.0" font-weight="700" fill="#111111">标定样本构建</text>
+<text x="510.00" y="110.62" text-anchor="start" font-family="Microsoft YaHei" font-size="15.0" font-weight="700" fill="#111111">映射求解</text>
+<text x="874.00" y="110.62" text-anchor="start" font-family="Microsoft YaHei" font-size="15.0" font-weight="700" fill="#111111">映射结果验证</text>
+<text x="236.00" y="168.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#333333">屏幕标定点（3×3）</text>
+<text x="584.00" y="296.38" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">样本对</text>
+<text x="584.00" y="312.62" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">(x_n, y_n) ↔ (u, v)</text>
+<text x="584.00" y="328.88" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111"></text>
+<text x="584.00" y="345.12" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">最小二乘 + 稳定项</text>
+<text x="584.00" y="361.38" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">求解矩阵 A</text>
+<text x="952.00" y="168.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#333333">映射后屏幕坐标</text>
+<text x="951.00" y="501.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#333333">误差评估：mae_x / mae_y / rmse</text>
+<text x="1062.00" y="700.12" text-anchor="end" font-family="Microsoft YaHei" font-size="11.0" font-weight="400" fill="#444444">线型说明：实线=主流程；虚线=反馈/辅助路径。</text>
+<text x="583.00" y="730.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#333333">图3-2  九点标定采样、参数求解与坐标映射关系示意</text>
+</svg>
