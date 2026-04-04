@@ -66,3 +66,23 @@ bash run.sh e2e-batch --execution-mode headless_replay --task-ids T01,T02
 2. 优先级与阶段拆分
 3. 验收命令与提交规范
 4. Windows + WSL2 迁移建议
+
+## Skills（随仓库迁移）
+
+已将 `lunwen` 技能随仓库存放到：
+
+- `skills/lunwen`
+
+新环境 clone 后安装到本机 Codex 目录：
+
+```bash
+bash scripts/install_lunwen_skill.sh --force
+```
+
+如希望直接软链接到仓库目录（便于后续同步）：
+
+```bash
+bash scripts/install_lunwen_skill.sh --force --link
+```
+
+安装后需重启 Codex 才会生效。
