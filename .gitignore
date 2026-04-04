@@ -1,6 +1,7 @@
 # OS / editor
 .DS_Store
 .vscode/
+.cursor/
 
 # Python cache
 __pycache__/
@@ -25,6 +26,11 @@ project/data/raw/
 project/data/runs/
 project/data/logs/
 project/data/calibration/
+project/data/experiments/
 
 # Keep reports out of Git by default (can upload selected reports manually later)
 project/data/reports/
+
+# Local MCP config (workspace-specific)
+mcp.json
+mcp_servers/

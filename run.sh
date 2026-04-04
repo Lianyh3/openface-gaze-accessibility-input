@@ -4,6 +4,24 @@ set -euo pipefail
 ROOT="/home/lyh/workspace"
 PROJECT="$ROOT/project"
 
+run_with_virtual_display_if_needed() {
+  # Prefer xvfb when available (stable for headless/remote sessions),
+  # unless the user explicitly requests real display rendering.
+  if command -v xvfb-run >/dev/null 2>&1 && [[ "${PREFER_REAL_DISPLAY:-0}" != "1" ]]; then
+    xvfb-run -a "$@"
+    return $?
+  fi
+
+  if [[ -n "${DISPLAY:-}" ]]; then
+    "$@"
+    return $?
+  fi
+
+  echo "DISPLAY is empty and xvfb-run is not installed." >&2
+  echo "Install xvfb or run in an environment with X11 display." >&2
+  return 2
+}
+
 usage() {
   cat <<'EOF'
 Unified project runner
@@ -28,6 +46,7 @@ Commands:
   gaze-live  Run OpenFace live webcam + gaze runtime pipeline
   calib      Fit 9-point affine calibration from sample CSV
   calib-collect  Collect online 9-point calibration points from growing CSV
+  e2e-batch  Batch end-to-end experiment runner (baseline + live + auto eval)
   help       Show this help message
 
 Examples:
@@ -47,6 +66,8 @@ Examples:
   bash /home/lyh/workspace/run.sh gaze-live --runtime-backend cpp --max-seconds 20
   bash /home/lyh/workspace/run.sh calib --output-json /tmp/calib.json
   bash /home/lyh/workspace/run.sh calib-collect --source-csv /tmp/live_gaze.csv --auto-start
+  bash /home/lyh/workspace/run.sh e2e-batch --task-ids T01,T02 --python-repeats 2 --cpp-repeats 1
+  bash /home/lyh/workspace/run.sh e2e-batch --execution-mode headless_replay --task-ids T01,T02 --python-repeats 2 --cpp-repeats 1 --force-heuristic-reranker
 EOF
 }
 
@@ -58,7 +79,8 @@ case "$cmd" in
     ;;
   cam)
     shift
-    python3 "$PROJECT/scripts/run_openface_baseline.py" \
+    run_with_virtual_display_if_needed \
+      python3 "$PROJECT/scripts/run_openface_baseline.py" \
       --device 0 \
       --out-dir "$PROJECT/data/runs/check_cam_defaults" \
       --report-json "$PROJECT/data/reports/check_cam_defaults_report.json" \
@@ -162,7 +184,8 @@ case "$cmd" in
     ;;
   gaze-live)
     shift
-    python3 "$PROJECT/scripts/run_openface_live_pipeline.py" \
+    run_with_virtual_display_if_needed \
+      python3 "$PROJECT/scripts/run_openface_live_pipeline.py" \
       --device 0 \
       --report-json "$PROJECT/data/reports/gaze_live_latest_report.json" \
       "$@"
@@ -176,6 +199,11 @@ case "$cmd" in
   calib-collect)
     shift
     python3 "$PROJECT/scripts/collect_9point_calibration.py" "$@"
+    ;;
+  e2e-batch)
+    shift
+    run_with_virtual_display_if_needed \
+      python3 "$PROJECT/scripts/run_end2end_batch.py" "$@"
     ;;
   *)
     echo "Unknown command: $cmd" >&2

@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" modified="2026-04-02T16:03:34+00:00" agent="drawio-local-mcp" version="24.7.17">
+  <diagram id="diagram-1" name="图5-5 失败案例事件时间线">
+    <mxGraphModel dx="1600" dy="980" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#C8C8C8;strokeWidth=1.2;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="60" width="1048" height="692" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="失败会话复盘时间线" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=15;fontStyle=1;fontColor=#111111;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="90" y="92" width="220" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#2C2C2C;strokeColor=#2C2C2C;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="146" y="332" width="852" height="4" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#222222;strokeWidth=1.2;" vertex="1" parent="1">
+          <mxGeometry x="172" y="324" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="t0&#10;开始" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#111111;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="142" y="352" width="78" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#222222;strokeWidth=1.2;" vertex="1" parent="1">
+          <mxGeometry x="312" y="324" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="t1&#10;key_input" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#111111;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="282" y="352" width="78" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#222222;strokeWidth=1.2;" vertex="1" parent="1">
+          <mxGeometry x="452" y="324" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="t2&#10;key_input" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#111111;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="422" y="352" width="78" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#222222;strokeWidth=1.2;" vertex="1" parent="1">
+          <mxGeometry x="592" y="324" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="t3&#10;key_input" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#111111;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="562" y="352" width="78" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#222222;strokeWidth=1.2;" vertex="1" parent="1">
+          <mxGeometry x="772" y="324" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="t4&#10;key_input" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#111111;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="742" y="352" width="78" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="15" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#222222;strokeWidth=1.2;" vertex="1" parent="1">
+          <mxGeometry x="952" y="324" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="16" value="t5&#10;结束" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#111111;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="922" y="352" width="78" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="17" value="组合区：&quot;我今天想去&quot;&#10;提交区：&quot;&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#202020;strokeWidth=1.8;fontSize=13;fontStyle=1;fontColor=#111111;align=center;verticalAlign=middle;arcSize=8;spacing=8;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="344" y="452" width="258" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="18" value="未发生 candidate_pick / commit&#10;任务未闭环" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#202020;strokeWidth=1.8;fontSize=13;fontStyle=1;fontColor=#111111;align=center;verticalAlign=middle;arcSize=8;spacing=8;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="658" y="452" width="304" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="20" value="说明：图中柱高用于相对比较，具体数值以正文和表格为准。" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontSize=11;fontColor=#444444;fontFamily=Microsoft YaHei;" vertex="1" parent="1"><mxGeometry x="690" y="686" width="380" height="20" as="geometry" /></mxCell><mxCell id="19" value="图5-5  失败会话中“输入完成但未提交”的时间线示意" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#333333;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="210" y="714" width="748" height="24" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

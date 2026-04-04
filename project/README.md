@@ -26,6 +26,7 @@
 - `scripts/run_gaze_cpp_pipeline.py`：用 C++ M1 回放后端驱动 Python 键盘事件流（M3 过渡版）
 - `scripts/compare_runtime_backends.py`：比较 Python/C++ gaze 后端 wall time 与事件一致性
 - `scripts/run_openface_live_pipeline.py`：启动 OpenFace 摄像头并实时驱动命中+dwell+键盘事件流（支持 `--runtime-backend {python,cpp}`）
+- `scripts/run_end2end_batch.py`：批量端到端实验（baseline + live + 自动评估 + 汇总）
 - `scripts/fit_9point_calibration.py`：根据 9 点标定样本拟合仿射映射参数
 - `scripts/collect_9point_calibration.py`：在线引导采集 9 点标定数据（从增长中的CSV读取）
 - `docs/AGENT_HANDOFF.md`：交接上下文
@@ -332,6 +333,46 @@ bash run.sh gaze --smoothing ema --ema-alpha 0.35
 cd /home/lyh/workspace
 bash run.sh gaze --smoothing one_euro --one-euro-min-cutoff 1.0 --one-euro-beta 0.01
 ```
+
+## 端到端批量实验（baseline + live + 自动评估）
+
+一条命令完成：
+
+1. baseline 摄像头链路批量采集（OpenFace CSV）
+2. live 端到端任务采集（Python/C++ 后端）
+3. 每轮自动计算 `CER/CPM/WPM`
+4. 自动输出总汇总 `summary.json`
+
+```bash
+cd /home/lyh/workspace
+bash run.sh e2e-batch --task-ids T01,T02 --python-repeats 2 --cpp-repeats 1
+```
+
+无图形界面场景（推荐）：
+
+```bash
+cd /home/lyh/workspace
+bash run.sh e2e-batch \
+  --execution-mode headless_replay \
+  --task-ids T01,T02 \
+  --python-repeats 2 \
+  --cpp-repeats 1 \
+  --force-heuristic-reranker
+```
+
+常用参数：
+
+- `--baseline-runs`：baseline 采集轮次（默认 5）
+- `--execution-mode`：`live`（摄像头交互）或 `headless_replay`（无界面脚本回放）
+- `--max-seconds`：每轮 live 最大时长（默认 60）
+- `--smoothing`：`none|ema|one_euro`
+- `--auto-start`：跳过每轮开始前的回车确认
+- `--continue-on-error`：单轮失败后继续后续轮次
+- `--force-heuristic-reranker`：禁用在线 LLM 重排，保证候选索引可复现（headless 模式建议开启）
+
+输出目录：
+
+- `project/data/experiments/e2e_batch_*/summary.json`
 
 ## 9 点标定拟合与接入
 

@@ -63,7 +63,7 @@ def _camera_hint(stdout: str) -> str:
 def _headless_hint(error_text: str, using_webcam: bool) -> str:
     if not using_webcam:
         return ""
-    if "code -6" not in error_text and "forcing visualization of tracking" not in error_text:
+    if "code -6" not in error_text:
         return ""
     if os.environ.get("DISPLAY"):
         return ""
@@ -143,6 +143,8 @@ def main() -> int:
         "openface_bin": str(openface_bin),
         "model_loc": str(model_loc),
         "out_dir": str(out_dir),
+        "timed_out": bool(proc.timed_out),
+        "openface_return_code": int(proc.returncode),
         "command_stdout_tail": proc.stdout.splitlines()[-30:],
         "csv_path": str(csv_path),
         "row_count": len(data.rows),
