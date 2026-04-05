@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1169" height="827" viewBox="0 0 1169 827">
+<rect x="0" y="0" width="100%" height="100%" fill="#ffffff"/>
+<rect x="60.00" y="60.00" width="1048.00" height="692.00" rx="6.00" ry="6.00" fill="#FAFAFA" stroke="#C8C8C8" stroke-width="1.20"/>
+<rect x="100.00" y="160.00" width="210.00" height="86.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="360.00" y="160.00" width="190.00" height="86.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="600.00" y="160.00" width="210.00" height="86.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="860.00" y="160.00" width="180.00" height="86.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="600.00" y="360.00" width="210.00" height="86.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="860.00" y="360.00" width="180.00" height="86.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="360.00" y="360.00" width="190.00" height="86.00" rx="4.80" ry="4.80" fill="#F5F5F5" stroke="#404040" stroke-width="1.60"/>
+<polyline points="310.00,203.00 360.00,203.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="360.00,203.00 351.50,206.82 351.50,199.18" fill="#303030"/>
+<polyline points="550.00,203.00 600.00,203.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="600.00,203.00 591.50,206.82 591.50,199.18" fill="#303030"/>
+<polyline points="810.00,203.00 860.00,203.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="860.00,203.00 851.50,206.82 851.50,199.18" fill="#303030"/>
+<polyline points="950.00,246.00 950.00,360.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="950.00,360.00 946.17,351.50 953.83,351.50" fill="#303030"/>
+<polyline points="860.00,403.00 810.00,403.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="810.00,403.00 818.50,399.18 818.50,406.82" fill="#303030"/>
+<polyline points="600.00,403.00 550.00,403.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="550.00,403.00 558.50,399.18 558.50,406.82" fill="#303030"/>
+<polyline points="360.00,403.00 250.00,560.00 80.00,560.00 80.00,203.00 100.00,203.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-dasharray="8 6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="100.00,203.00 91.50,206.82 91.50,199.18" fill="#303030"/>
+<text x="98.00" y="110.62" text-anchor="start" font-family="Microsoft YaHei" font-size="15.0" font-weight="700" fill="#111111">实验组织流程</text>
+<text x="205.00" y="199.75" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">任务与口径定义</text>
+<text x="205.00" y="216.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">RQ + 指标 + 参数</text>
+<text x="455.00" y="199.75" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">实验执行</text>
+<text x="455.00" y="216.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">Baseline / E2E</text>
+<text x="705.00" y="199.75" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">会话日志汇总</text>
+<text x="705.00" y="216.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">事件与状态轨迹</text>
+<text x="950.00" y="199.75" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">指标计算</text>
+<text x="950.00" y="216.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">CER / CPM / WPM</text>
+<text x="705.00" y="399.75" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">结果分析</text>
+<text x="705.00" y="416.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">稳定性 / 消融 / 失败归因</text>
+<text x="950.00" y="407.88" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">结论与边界</text>
+<text x="455.00" y="407.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">下一轮优化建议</text>
+<text x="1062.00" y="700.12" text-anchor="end" font-family="Microsoft YaHei" font-size="11.0" font-weight="400" fill="#444444">线型说明：实线=主流程；虚线=反馈/辅助路径。</text>
+<text x="582.00" y="730.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#333333">图5-1  实验设计、执行与分析的总体流程</text>
+</svg>

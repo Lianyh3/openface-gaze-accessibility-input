@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1169" height="827" viewBox="0 0 1169 827">
+<rect x="0" y="0" width="100%" height="100%" fill="#ffffff"/>
+<rect x="96.00" y="90.00" width="976.00" height="640.00" rx="6.00" ry="6.00" fill="#FAFAFA" stroke="#C8C8C8" stroke-width="1.20"/>
+<rect x="162.00" y="360.00" width="196.00" height="94.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="486.00" y="210.00" width="232.00" height="122.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="834.00" y="360.00" width="196.00" height="94.00" rx="4.80" ry="4.80" fill="#FFFFFF" stroke="#202020" stroke-width="1.80"/>
+<rect x="486.00" y="470.00" width="232.00" height="118.00" rx="4.80" ry="4.80" fill="#F5F5F5" stroke="#404040" stroke-width="1.60"/>
+<polyline points="358.00,392.90 486.00,277.10" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="486.00,277.10 482.26,285.64 477.13,279.97" fill="#303030"/>
+<polyline points="718.00,277.10 834.00,392.90" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="834.00,392.90 825.28,389.60 830.69,384.19" fill="#303030"/>
+<polyline points="834.00,421.10 358.00,421.10" fill="none" stroke="#303030" stroke-width="1.70" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="358.00,421.10 366.50,417.28 366.50,424.93" fill="#303030"/>
+<polyline points="486.00,252.70 280.00,250.00 358.00,392.90" fill="none" stroke="#303030" stroke-width="1.70" stroke-dasharray="8 6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="358.00,392.90 350.57,387.27 357.28,383.61" fill="#303030"/>
+<polyline points="834.00,392.90 930.00,250.00 718.00,252.70" fill="none" stroke="#303030" stroke-width="1.70" stroke-dasharray="8 6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="718.00,252.70 726.45,248.77 726.55,256.42" fill="#303030"/>
+<polyline points="602.00,470.00 602.00,332.00" fill="none" stroke="#303030" stroke-width="1.70" stroke-dasharray="8 6" stroke-linejoin="round" stroke-linecap="round"/>
+<polygon points="602.00,332.00 605.83,340.50 598.17,340.50" fill="#303030"/>
+<text x="134.00" y="140.62" text-anchor="start" font-family="Microsoft YaHei" font-size="15.0" font-weight="700" fill="#111111">停留触发状态机</text>
+<text x="260.00" y="403.75" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">空闲</text>
+<text x="260.00" y="420.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">Idle</text>
+<text x="602.00" y="259.62" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">跟踪</text>
+<text x="602.00" y="275.88" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">Tracking</text>
+<text x="602.00" y="292.12" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">累计 dwell 时间</text>
+<text x="932.00" y="395.62" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">触发</text>
+<text x="932.00" y="411.88" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">Triggered</text>
+<text x="932.00" y="428.12" text-anchor="middle" font-family="Microsoft YaHei" font-size="13.0" font-weight="700" fill="#111111">e = 1</text>
+<text x="602.00" y="511.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">触发条件：</text>
+<text x="602.00" y="526.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">g_t = g_(t-1)</text>
+<text x="602.00" y="541.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">且 (t - t_s) &gt;= tau</text>
+<text x="602.00" y="556.00" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#111111">且 e = 0</text>
+<text x="1062.00" y="700.12" text-anchor="end" font-family="Microsoft YaHei" font-size="11.0" font-weight="400" fill="#444444">线型说明：实线=主流程；虚线=反馈/辅助路径。</text>
+<text x="584.00" y="706.50" text-anchor="middle" font-family="Microsoft YaHei" font-size="12.0" font-weight="400" fill="#333333">图4-3  停留触发状态机及其转移条件</text>
+</svg>

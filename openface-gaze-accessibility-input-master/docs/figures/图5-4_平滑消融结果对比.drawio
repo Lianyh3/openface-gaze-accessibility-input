@@ -1,0 +1,31 @@
+<mxfile host="app.diagrams.net" modified="2026-04-02T16:03:34+00:00" agent="drawio-local-mcp" version="24.7.17">
+  <diagram id="diagram-1" name="图5-4 平滑消融结果对比">
+    <mxGraphModel dx="1600" dy="980" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#C8C8C8;strokeWidth=1.2;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="60" width="1048" height="692" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="平滑策略消融（tau = 600 ms）" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=15;fontStyle=1;fontColor=#111111;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="90" y="92" width="280" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="none&#10;CER = 0&#10;event = 5&#10;candidate_pick = 1&#10;结果：成功提交" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#202020;strokeWidth=1.8;fontSize=13;fontStyle=1;fontColor=#111111;align=center;verticalAlign=middle;arcSize=8;spacing=8;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="96" y="160" width="304" height="362" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="EMA (alpha=0.4)&#10;CER = 1.0&#10;event = 3&#10;candidate_pick = 0&#10;结果：未提交" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#202020;strokeWidth=1.8;fontSize=13;fontStyle=1;fontColor=#111111;align=center;verticalAlign=middle;arcSize=8;spacing=8;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="432" y="160" width="304" height="362" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="One-Euro&#10;CER = 1.0&#10;event = 4&#10;candidate_pick = 0&#10;结果：未提交" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#202020;strokeWidth=1.8;fontSize=13;fontStyle=1;fontColor=#111111;align=center;verticalAlign=middle;arcSize=8;spacing=8;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="768" y="160" width="304" height="362" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="关键结论：平滑强度需与触发阈值联合调参，参数不匹配会导致提交闭环失败。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#404040;strokeWidth=1.6;fontSize=12;fontColor=#111111;align=center;verticalAlign=middle;arcSize=8;spacing=8;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="96" y="560" width="976" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="说明：图中柱高用于相对比较，具体数值以正文和表格为准。" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontSize=11;fontColor=#444444;fontFamily=Microsoft YaHei;" vertex="1" parent="1"><mxGeometry x="690" y="686" width="380" height="20" as="geometry" /></mxCell><mxCell id="8" value="图5-4  none / EMA / One-Euro 消融结果对比" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#333333;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="300" y="714" width="570" height="24" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,16 @@
+{
+  "openface_bin": "/home/lyh/workspace/OpenFace-OpenFace_2.2.0/build_clean/bin/FeatureExtraction",
+  "model_loc": "/home/lyh/workspace/OpenFace-OpenFace_2.2.0/build_clean/bin/model/main_clnf_wild.txt",
+  "default_out_dir": "/home/lyh/workspace/project/data/raw/default_run",
+  "dwell_ms": 600,
+  "llm": {
+    "provider": "openai",
+    "api_style": "responses",
+    "base_url": "https://api.openai.com/v1",
+    "model": "gpt-5-mini",
+    "api_key_env": "OPENAI_API_KEY",
+    "temperature": 0.2,
+    "max_output_tokens": 64,
+    "timeout_seconds": 30
+  }
+}

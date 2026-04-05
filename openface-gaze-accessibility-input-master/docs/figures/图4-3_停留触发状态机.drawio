@@ -1,0 +1,49 @@
+<mxfile host="app.diagrams.net" modified="2026-04-02T16:10:40+00:00" agent="drawio-local-mcp" version="24.7.17">
+  <diagram id="diagram-1" name="图4-3 停留触发状态机">
+    <mxGraphModel dx="1600" dy="980" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#C8C8C8;strokeWidth=1.2;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="96" y="90" width="976" height="640" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="停留触发状态机" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=15;fontStyle=1;fontColor=#111111;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="126" y="122" width="180" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="空闲&#10;Idle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#202020;strokeWidth=1.8;fontSize=13;fontStyle=1;fontColor=#111111;align=center;verticalAlign=middle;arcSize=8;spacing=8;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="162" y="360" width="196" height="94" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="跟踪&#10;Tracking&#10;累计 dwell 时间" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#202020;strokeWidth=1.8;fontSize=13;fontStyle=1;fontColor=#111111;align=center;verticalAlign=middle;arcSize=8;spacing=8;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="486" y="210" width="232" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="触发&#10;Triggered&#10;e = 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#202020;strokeWidth=1.8;fontSize=13;fontStyle=1;fontColor=#111111;align=center;verticalAlign=middle;arcSize=8;spacing=8;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="834" y="360" width="196" height="94" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="触发条件：&#10;g_t = g_(t-1)&#10;且 (t - t_s) &gt;= tau&#10;且 e = 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#404040;strokeWidth=1.6;fontSize=12;fontColor=#111111;align=center;verticalAlign=middle;arcSize=8;spacing=8;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="486" y="470" width="232" height="118" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="" style="edgeStyle=orthogonalEdgeStyle;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#303030;strokeWidth=1.7;rounded=0;exitX=1;exitY=0.35;entryX=0;entryY=0.55;" edge="1" parent="1" source="4" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="" style="edgeStyle=orthogonalEdgeStyle;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#303030;strokeWidth=1.7;rounded=0;exitX=1;exitY=0.55;entryX=0;entryY=0.35;" edge="1" parent="1" source="5" target="6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="" style="edgeStyle=orthogonalEdgeStyle;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#303030;strokeWidth=1.7;rounded=0;exitX=0;exitY=0.65;entryX=1;entryY=0.65;" edge="1" parent="1" source="6" target="4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="" style="edgeStyle=orthogonalEdgeStyle;jettySize=auto;dashed=1;dashPattern=8 6;html=1;endArrow=block;endFill=1;strokeColor=#303030;strokeWidth=1.7;rounded=0;exitX=0;exitY=0.35;entryX=1;entryY=0.35;" edge="1" parent="1" source="5" target="4">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="280" y="250" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="12" value="" style="edgeStyle=orthogonalEdgeStyle;jettySize=auto;dashed=1;dashPattern=8 6;html=1;endArrow=block;endFill=1;strokeColor=#303030;strokeWidth=1.7;rounded=0;exitX=0;exitY=0.35;entryX=1;entryY=0.35;" edge="1" parent="1" source="6" target="5">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="930" y="250" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="13" value="" style="edgeStyle=orthogonalEdgeStyle;jettySize=auto;dashed=1;dashPattern=8 6;html=1;endArrow=block;endFill=1;strokeColor=#303030;strokeWidth=1.7;rounded=0;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="7" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="15" value="线型说明：实线=主流程；虚线=反馈/辅助路径。" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;fontSize=11;fontColor=#444444;fontFamily=Microsoft YaHei;" vertex="1" parent="1"><mxGeometry x="690" y="686" width="380" height="20" as="geometry" /></mxCell><mxCell id="14" value="图4-3  停留触发状态机及其转移条件" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#333333;fontFamily=Microsoft YaHei;" vertex="1" parent="1">
+          <mxGeometry x="304" y="690" width="560" height="24" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

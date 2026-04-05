@@ -1,0 +1,90 @@
+{
+  "version": "m0",
+  "description": "Cross-language contract alignment samples for FrameFeatures/GazePoint/TargetEvent.",
+  "cases": [
+    {
+      "case_id": "case_key_input",
+      "frame_features": {
+        "frame_id": 101,
+        "timestamp_ms": 1700000001000,
+        "raw_gaze_x": -0.12,
+        "raw_gaze_y": 0.08,
+        "confidence": 0.76,
+        "pose_rx": 0.02,
+        "pose_ry": -0.04,
+        "pose_rz": 0.01
+      },
+      "gaze_point": {
+        "timestamp_ms": 1700000001000,
+        "normalized_x": 0.31,
+        "normalized_y": 0.62,
+        "target_id": "key:我"
+      },
+      "target_event": {
+        "timestamp_ms": 1700000001650,
+        "event_type": "key_input",
+        "target_id": "key:我",
+        "text": "我",
+        "candidate_index": 0,
+        "dwell_started_ms": 1700000001000,
+        "dwell_elapsed_ms": 650
+      }
+    },
+    {
+      "case_id": "case_candidate_pick",
+      "frame_features": {
+        "frame_id": 220,
+        "timestamp_ms": 1700000004300,
+        "raw_gaze_x": -0.05,
+        "raw_gaze_y": 0.22,
+        "confidence": 0.82,
+        "pose_rx": null,
+        "pose_ry": null,
+        "pose_rz": null
+      },
+      "gaze_point": {
+        "timestamp_ms": 1700000004300,
+        "normalized_x": 0.41,
+        "normalized_y": 0.14,
+        "target_id": "cand:1"
+      },
+      "target_event": {
+        "timestamp_ms": 1700000004950,
+        "event_type": "candidate_pick",
+        "target_id": "cand:1",
+        "text": "",
+        "candidate_index": 1,
+        "dwell_started_ms": 1700000004300,
+        "dwell_elapsed_ms": 650
+      }
+    },
+    {
+      "case_id": "case_backspace",
+      "frame_features": {
+        "frame_id": 301,
+        "timestamp_ms": 1700000007600,
+        "raw_gaze_x": 0.18,
+        "raw_gaze_y": -0.09,
+        "confidence": 0.69,
+        "pose_rx": 0.03,
+        "pose_ry": -0.02,
+        "pose_rz": 0.00
+      },
+      "gaze_point": {
+        "timestamp_ms": 1700000007600,
+        "normalized_x": 0.08,
+        "normalized_y": 0.92,
+        "target_id": "action:back"
+      },
+      "target_event": {
+        "timestamp_ms": 1700000008260,
+        "event_type": "backspace",
+        "target_id": "action:back",
+        "text": "",
+        "candidate_index": 0,
+        "dwell_started_ms": 1700000007600,
+        "dwell_elapsed_ms": 660
+      }
+    }
+  ]
+}
