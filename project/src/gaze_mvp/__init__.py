@@ -1,2 +1,0 @@
-"""Gaze MVP baseline package."""
-
