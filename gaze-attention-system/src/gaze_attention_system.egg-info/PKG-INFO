@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: gaze-attention-system
+Version: 0.1.0
+Summary: 基于 OpenFace 的实时视线估计优化与课堂注意力检测系统
+Requires-Python: >=3.11
+Requires-Dist: PySide6>=6.6
+Requires-Dist: openai>=1.0

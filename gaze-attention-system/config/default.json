@@ -1,0 +1,47 @@
+{
+  "openface": {
+    "bin_path": "D:/openface-gaze-accessibility-input-master/OpenFace-master/x64/Release/FeatureExtraction.exe",
+    "mloc": "D:/openface-gaze-accessibility-input-master/OpenFace-master/lib/local/LandmarkDetector/model/main_ceclm_general.txt",
+    "device": 0,
+    "output_dir": "./data/runtime"
+  },
+  "smoothing": {
+    "method": "adaptive_ema",
+    "ema_alpha": 0.3,
+    "adaptive_ema_alpha_min": 0.12,
+    "adaptive_ema_alpha_max": 0.65,
+    "adaptive_ema_delta_ref": 0.03,
+    "one_euro_min_cutoff": 1.0,
+    "one_euro_beta": 0.007,
+    "one_euro_d_cutoff": 1.0
+  },
+  "feature": {
+    "window_size_sec": 2.0,
+    "min_valid_frame_ratio": 0.7,
+    "confidence_threshold": 0.7,
+    "gaze_baseline_x": 0.0,
+    "gaze_baseline_y": 0.0
+  },
+  "rule_engine": {
+    "gaze_deviation_mild": 0.18,
+    "gaze_deviation_severe": 0.35,
+    "head_yaw_threshold": 22.0,
+    "head_pitch_threshold": 18.0,
+    "distracted_duration_sec": 2.2,
+    "severe_duration_sec": 6.0,
+    "severe_decay_rate": 2.8,
+    "distracted_decay_rate": 2.2
+  },
+  "gpt": {
+    "model": "gpt-4o-mini",
+    "api_key_env": "OPENAI_API_KEY",
+    "temperature": 0,
+    "call_interval_sec": 3.0,
+    "timeout_sec": 5.0,
+    "fallback_to_rules": true
+  },
+  "gui": {
+    "refresh_fps": 30,
+    "timeline_history_sec": 60
+  }
+}
